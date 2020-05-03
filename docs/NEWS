@@ -1,8 +1,20 @@
-   * Split date and time input in editor into two input fields
-   * Improve performance of the media library by caching the file list
+Version 2.4-alpha3 (subscription branch)
+------------------------------------------------------------------------
+
+   * upgrader to 2.4-alpha3:
+        Database:
+            add new subscriptions table
+            delete subscribed colum from comments table
+            move comment subscriptions to subscriptions table
+        files:
+            change rewrite rules for PAT_UNSUBSCRIBE and PAT_SUBSCRIBE
+            in .htaccess template files
 
 Version 2.4-alpha2 ()
 ------------------------------------------------------------------------
+
+   * Split date and time input in editor into two input fields
+   * Improve performance of the media library by caching the file list
    * db_schema_import: change {BOOLEAN} from 'null default true'
      to simply 'boolean', user can add additional conditions
    * Move MySQL databases from MyIsam and UTF8 to InnoDB and utf8mb4, 
