@@ -1581,6 +1581,7 @@ $(function() {
 
     // Clone form submit buttons
     $('#sort_entries > .form_buttons').clone().appendTo('#filter_entries');
+    $('#sort_subscriptions > .form_buttons').clone().appendTo('#filter_subscriptions');
     $('#media_pane_sort > .form_buttons').clone().appendTo('#media_pane_filter');
 
     // Clone pagination - this could become a function, which should also
@@ -1588,6 +1589,7 @@ $(function() {
     $('.media_pane .pagination').clone().prependTo('.media_pane');
     $('.comments_pane .pagination').clone().prependTo('.comments_pane');
     $('.entries_pane .pagination').clone().prependTo('.entries_pane');
+    $('.subscriptions_pane .pagination').clone().prependTo('.subscriptions_pane');
     $('.karma_pane .pagination').clone().prependTo('.karma_pane');
 
     // close comment reply on button click
