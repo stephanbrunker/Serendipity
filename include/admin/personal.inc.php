@@ -110,8 +110,7 @@ if ($serendipity['GET']['adminAction'] == 'save' && serendipity_checkFormToken()
 
 $data['formToken'] = serendipity_setFormToken();
 $template       = serendipity_parseTemplate(S9Y_CONFIG_USERTEMPLATE);
-$user           = serendipity_fetchUsers($serendipity['authorid']);
-$from           = $user[0];
+$from           = serendipity_fetchAuthor($serendipity['authorid']);
 $from['groups'] = serendipity_getGroups($serendipity['authorid']);
 unset($from['password']);
 $data['config'] = serendipity_printConfigTemplate($template, $from, true, false);

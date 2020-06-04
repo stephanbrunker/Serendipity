@@ -17,17 +17,17 @@ $data = array();
 /* Delete a user */
 if (isset($_POST['DELETE_YES']) && serendipity_checkFormToken()) {
     $data['delete_yes'] = true;
-    $user = serendipity_fetchUsers($serendipity['POST']['user']);
-    if (($serendipity['serendipityUserlevel'] < USERLEVEL_ADMIN && $user[0]['userlevel'] >= $serendipity['serendipityUserlevel']) || !serendipity_checkPermission('adminUsersDelete')) {
+    $user = serendipity_fetchAuthor($serendipity['POST']['user']);
+    if (($serendipity['serendipityUserlevel'] < USERLEVEL_ADMIN && $user['userlevel'] >= $serendipity['serendipityUserlevel']) || !serendipity_checkPermission('adminUsersDelete')) {
         $data['no_delete_permission'] = true;
     } elseif ($_POST['userlevel'] > $serendipity['serendipityUserlevel']) {
         $data['no_delete_permission_userlevel'] = true;
     } else {
-        $group_intersect = serendipity_intersectGroup($user[0]['authorid']);
+        $group_intersect = serendipity_intersectGroup($user['authorid']);
         if (serendipity_checkPermission('adminUsersMaintainOthers') || (serendipity_checkPermission('adminUsersMaintainSame') && $group_intersect)) {
             $data['delete_permission'] = true;
-            serendipity_deleteAuthor($user[0]['authorid']);
-            serendipity_plugin_api::hook_event('backend_users_delete', $user[0]);
+            serendipity_deleteAuthor($user['authorid']);
+            serendipity_plugin_api::hook_event('backend_users_delete', $user);
             $data['user'] = $serendipity['POST']['user'];
             $data['realname'] = $_POST['realname'];
         }
@@ -101,10 +101,10 @@ if (isset($_POST['SAVE_NEW']) && serendipity_checkFormToken()) {
 /* Edit a user */
 if (isset($_POST['SAVE_EDIT']) && serendipity_checkFormToken()) {
     $data['save_edit'] = true;
-    $user = serendipity_fetchUsers($serendipity['POST']['user']);
+    $user = serendipity_fetchAuthor($serendipity['POST']['user']);
     $data['user'] = $user;
     $data['realname'] = $_POST['realname'];
-    if (!serendipity_checkPermission('adminUsersMaintainOthers') && $user[0]['userlevel'] >= $serendipity['serendipityUserlevel']) {
+    if (!serendipity_checkPermission('adminUsersMaintainOthers') && $user['userlevel'] >= $serendipity['serendipityUserlevel']) {
         $data['no_edit_permission'] = true;
     } elseif ($_POST['userlevel'] > $serendipity['serendipityUserlevel']) {
         $data['no_edit_permission_userlevel'] = true;
@@ -204,15 +204,15 @@ if ( ($serendipity['GET']['adminAction'] == 'edit' && serendipity_checkPermissio
     $data['formToken'] = serendipity_setFormToken();
 
     if ($serendipity['GET']['adminAction'] == 'edit') {
-        $user = serendipity_fetchUsers($serendipity['GET']['userid']);
-        $group_intersect = serendipity_intersectGroup($user[0]['authorid']);
-        if ($user[0]['userlevel'] >= $serendipity['serendipityUserlevel'] && $user[0]['authorid'] != $serendipity['authorid'] && !serendipity_checkPermission('adminUsersMaintainOthers')) {
+        $user = serendipity_fetchAuthor($serendipity['GET']['userid']);
+        $group_intersect = serendipity_intersectGroup($user['authorid']);
+        if ($user['userlevel'] >= $serendipity['serendipityUserlevel'] && $user['authorid'] != $serendipity['authorid'] && !serendipity_checkPermission('adminUsersMaintainOthers')) {
             $data['no_create_permission'] = true;
             $from = array();
         } elseif (serendipity_checkPermission('adminUsersMaintainOthers') ||
                 (serendipity_checkPermission('adminUsersMaintainSame') && $group_intersect)) {
             $data['create_permission'] = true;
-            $from = &$user[0];
+            $from = &$user;
             unset($from['password']);
         } else {
 
@@ -233,14 +233,14 @@ if ( ($serendipity['GET']['adminAction'] == 'edit' && serendipity_checkPermissio
     $data['config'] = serendipity_printConfigTemplate($config, $from, true, false, true, true);
 
 } elseif ($serendipity['GET']['adminAction'] == 'delete' && serendipity_checkPermission('adminUsersDelete')) {
-    $user = serendipity_fetchUsers($serendipity['GET']['userid']);
-    $group_intersect = serendipity_intersectGroup($user[0]['authorid']);
+    $user = serendipity_fetchAuthor($serendipity['GET']['userid']);
+    $group_intersect = serendipity_intersectGroup($user['authorid']);
 
     if (serendipity_checkPermission('adminUsersMaintainOthers') ||
                 (serendipity_checkPermission('adminUsersMaintainSame') && $group_intersect)) {
         $data['delete'] = true;
         $data['userid'] = (int)$serendipity['GET']['userid'];
-        $data['realname'] = $user[0]['realname'];
+        $data['realname'] = $user['realname'];
         $data['formToken'] = serendipity_setFormToken();
     }
 }

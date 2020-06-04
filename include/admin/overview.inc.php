@@ -38,7 +38,7 @@ $bookmarklet = "javascript:var%20d=document,w=window,e=w.getSelection,k=d.getSel
 
 
 $data['bookmarklet'] = $bookmarklet;
-$data['username'] = $user[0]['realname'];
+$data['username'] = $user['realname'];
 $data['js_failure_file'] = serendipity_getTemplateFile('admin/serendipity_editor.js');
 
 $output = array();

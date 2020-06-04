@@ -678,7 +678,7 @@ function xhtml_cleanup($html) {
 function serendipity_fetchAuthor($author) {
     global $serendipity;
 
-    return serendipity_db_query("SELECT * FROM {$serendipity['dbPrefix']}authors WHERE " . (is_numeric($author) ? "authorid={$author};" : "username='" . serendipity_db_escape_string($author) . "';"));
+    return serendipity_db_query("SELECT * FROM {$serendipity['dbPrefix']}authors WHERE " . (is_numeric($author) ? "authorid={$author};" : "username='" . serendipity_db_escape_string($author) . "';"), true, 'assoc');
 }
 
 /**

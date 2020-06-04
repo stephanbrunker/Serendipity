@@ -142,7 +142,7 @@ class Serendipity_Import_MovableType extends Serendipity_Import {
                             $tasks[] = '<ul class="plainList"><li>Input array is: ' . print_r($data, true) . '</li><<li>Return is: ' . print_r($au_inf, true) . '</li></ul>';
                             $au_inf = serendipity_fetchAuthor($serendipity['authorid']);
                         }
-                        $authors[$data] = $au_inf[0];
+                        $authors[$data] = $au_inf;
                     }
                     $entry['authorid'] = $authors[$data]['authorid'];
                     $entry['author'] = $authors[$data]['username'];
