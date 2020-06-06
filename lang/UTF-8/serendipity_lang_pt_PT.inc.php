@@ -45,6 +45,7 @@
 @define('DOWN', 'Para baixo');
 @define('PREVIOUS', 'Anterior');
 @define('NEXT', 'Seguinte');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'Artigos:');
 @define('CATEGORIES', 'Categorias');
 @define('NAME', 'Nome');
@@ -462,6 +463,7 @@
 @define('CREATE_NEW_CAT', 'Criar uma nova categoria');
 @define('ALREADY_SUBCATEGORY', '%s já é uma subcategoria de %s.');
 @define('NO_CATEGORIES', 'Sem categorias');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -869,6 +871,10 @@
 @define('USERCONF_PASSWORD_DESC', 'A senha que você quer usar para se identificar no blogue');
 @define('USERCONF_CHECK_PASSWORD', 'Senha antiga');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Se mudar a senha no campo acima, precisa de inserir a senha corrente neste campo.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Nível de acesso');
 @define('USERCONF_USERLEVEL_DESC', 'Este nível é usado para determinar que tipo de acesso ao blogue tem este utilizador');
 @define('USERCONF_GROUPS', 'Inscrições em grupos');
@@ -978,6 +984,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Subscrever a este artigo');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'O seu navegador não enviou uma sequência válida de HTTP-Referrer. Isto pode ter sido causado por um proxy ou navegador mal configurado ou por um Cross Site Request Forgery (XSRF) dirigido a si. A acção que solicitou não pôde ser completada.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -1000,9 +1010,8 @@
 @define('APPROVE_TRACKBACK', 'Aprovar trackback');
 @define('TRACKBACK_APPROVED', 'O trackback #%s foi aprovado corretamente');
 @define('TRACKBACK_DELETED', 'O trackback #%s foi excluído corretamente');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Nível de topo');
 @define('VIEW_COMMENT', 'Exibir comentário');
 @define('VIEW_ENTRY', 'Exibir artigo');
@@ -1054,7 +1063,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Nenhum artigo encontrado para a consulta %s' . "\n");
@@ -1123,6 +1131,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Mostrar número de artigos ao lado do nome nome do autor?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Se esta opção for activada, o número de artigos deste autor será mostrado entre parêntesis junto ao nome do Autor.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Mostar apenas Autores com um mínimo de X artigos');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Sindicalização');

@@ -42,6 +42,7 @@
 @define('DOWN', 'NER');
 @define('PREVIOUS', 'Föregående');
 @define('NEXT', 'Nästa');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'Artiklar');
 @define('CATEGORIES', 'Kategorier');
 @define('NAME', 'Namn');
@@ -459,6 +460,7 @@
 @define('CREATE_NEW_CAT', 'Skapa ny kategori');
 @define('ALREADY_SUBCATEGORY', '%s är redan en underkatalog till %s.');
 @define('NO_CATEGORIES', 'Inga kategorier');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Kunde inte jämföra kontrollsummor! (Ingen checksums.inc.php i huvudmappen)');
@@ -866,6 +868,10 @@
 @define('USERCONF_PASSWORD_DESC', 'Lösenordet du vill använda för att logga in till denna blogg');
 @define('USERCONF_CHECK_PASSWORD', 'Gammalt lösenord');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Om du ändrar lösenordet i fältet ovean måste du fylla i det nuvarande lösenordet i det här fältet.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Accessnivå');
 @define('USERCONF_USERLEVEL_DESC', 'Denna nivå används för att bestämma vilken slags tillgång denna användare ska ha till bloggen');
 @define('USERCONF_GROUPS', 'Gruppmedlemskap');
@@ -975,6 +981,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Prenumerera på denna artikel');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Din webbläsre skickade inte en giltig HTTP-hänvisarsträng. Detta kan ha orsakats av en felkonfigurerad webbläsare/proxy eller av en Cross Site Request Forgery (XSRF) riktad mot dig. Den efterfrågade handlingen kunde inte genomföras.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -997,9 +1007,8 @@
 @define('APPROVE_TRACKBACK', 'Godkänn trackback');
 @define('TRACKBACK_APPROVED', 'Trackback #%s har blivit godkänd');
 @define('TRACKBACK_DELETED', 'Trackback #%s har tagits bort');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Översta nivån');
 @define('VIEW_COMMENT', 'Visa kommentar');
 @define('VIEW_ENTRY', 'Visa artikel');
@@ -1051,7 +1060,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Inga artiklar hittade för sökningen %s' . "\n");
@@ -1120,6 +1128,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Visa antalet artiklar bredvid författarens namn?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Om detta alternativ är valt kommer antalet artiklar av denna författare att visas bredvid författarens namn inom parantes.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Visa enbart författare med minst X skrivna artiklar');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Syndikering');

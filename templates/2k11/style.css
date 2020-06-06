@@ -325,6 +325,27 @@ div.unsubscribe_info span {
 
 .unsubscribe_info .unsubscribe_date { font-size: 80%; }
 
+div.authordesc,
+div.categorydesc { 
+    display: flex;
+    margin: -0.5em;
+    margin-bottom: 1em; 
+}
+
+.authordesc div,
+.categorydesc div { padding: 0.5em; }
+
+div.authorimage, 
+div.authordescription,
+div.categoryimage,
+div.categorydescription { flex: auto; }
+
+.authorimage img { width: 150px; min-width: 150px; }
+.categoryimage img { max-width: 150px; }
+
+a.serendipity_xml_icon,
+a.serendipity_mail_icon { display: inline-block; }
+
 #primary-nav select {
     margin: .5em 1em;
     width: 90%;
@@ -478,7 +499,7 @@ div.unsubscribe_info span {
 
 .serendipity_entryIcon {
     float: left;
-    margin: 0 2em .625em 0;
+    margin: 0 1em .625em 0;
 }
 
 .serendipity_entry table {

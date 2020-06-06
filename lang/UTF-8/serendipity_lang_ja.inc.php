@@ -42,6 +42,7 @@
 @define('DOWN', '下へ');
 @define('PREVIOUS', '前へ');
 @define('NEXT', '次へ');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'エントリー');
 @define('CATEGORIES', 'カテゴリの管理');
 @define('NAME', '名前');
@@ -459,6 +460,7 @@
 @define('CREATE_NEW_CAT', '新規カテゴリを作成する');
 @define('ALREADY_SUBCATEGORY', '%s は %s のサブカテゴリに既に存在します。');
 @define('NO_CATEGORIES', 'カテゴリがありません');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -866,6 +868,10 @@
 @define('USERCONF_PASSWORD_DESC', 'ブログにログインするときに使うパスワードを指定します。');
 @define('USERCONF_CHECK_PASSWORD', '古いパスワード');
 @define('USERCONF_CHECK_PASSWORD_DESC', '上の項目でパスワードを変更する場合、この項目に現在のユーザーパスワードを入力する必要があります。');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'アクセスレベル');
 @define('USERCONF_USERLEVEL_DESC', 'このレベルはこのユーザーがウェブログに対してどういう種類のアクセスを持つか決定するため使用されます。');
 @define('USERCONF_GROUPS', 'グループメンバー');
@@ -975,6 +981,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'このエントリーを購読する');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'ブラウザーは有効な HTTP-Referrer 文字列を送信しませんでした。これは誤設定されたブラウザー/プロクシ、あるいはあなたに向けた Cross Site Request Forgery(XSRF)を引き起ここすかどちらかかもしれません。要求した操作は完了できませんでした。');
 @define('NAVLINK_AMOUNT', 'ナビゲーション バーのリンク数の入力 (スタイル ページ管理の再読み込みに必要)');
@@ -997,9 +1007,8 @@
 @define('APPROVE_TRACKBACK', 'トラックバックを承認する');
 @define('TRACKBACK_APPROVED', 'トラックバック #%s の承認に成功しました。');
 @define('TRACKBACK_DELETED', 'トラックバック #%s の削除に成功しました。');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'トップレベル');
 @define('VIEW_COMMENT', 'コメントを閲覧する');
 @define('VIEW_ENTRY', 'エントリーを閲覧する');
@@ -1051,7 +1060,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'キーワード「%s」はどのエントリーでも見つけられませんでした。' . "\n");
@@ -1120,6 +1128,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Show number of articles next to author name?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'If this option is enabled, the number of articles by this author is shown next to the authors name in parentheses.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Show only authors with at least X articles');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', '配信');

@@ -44,6 +44,7 @@
 @define('DOWN', '下');
 @define('PREVIOUS', '上一页');
 @define('NEXT', '下一页');
+@define('STR_AND', 'and');
 @define('ENTRIES', '文章管理');
 @define('CATEGORIES', '类别管理');
 @define('NAME', '名称');
@@ -461,6 +462,7 @@
 @define('CREATE_NEW_CAT', '添加');
 @define('ALREADY_SUBCATEGORY', '%s 已经是此类别的子分类 %s');
 @define('NO_CATEGORIES', '没有分类');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -868,6 +870,10 @@
 @define('USERCONF_PASSWORD_DESC', '你登入系统的密码');
 @define('USERCONF_CHECK_PASSWORD', '旧密码');
 @define('USERCONF_CHECK_PASSWORD_DESC', '如果你要更改密码，请将新密码输入到这里。');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', '权限');
 @define('USERCONF_USERLEVEL_DESC', '这个选项可以设定此作者在这个日志内的权限');
 @define('USERCONF_GROUPS', '会员群组');
@@ -977,6 +983,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', '订阅这篇文章');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', '你的浏览器传送了错误的 HTTP-Referrer 字符。可能是因为 browser/proxy 的错误设定或是 Cross Site Request Forgery (XSRF) 的关系。你的操作无法完成。');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -999,9 +1009,8 @@
 @define('APPROVE_TRACKBACK', '审核引用');
 @define('TRACKBACK_APPROVED', '引用 #%s 已经通过审核');
 @define('TRACKBACK_DELETED', '引用 #%s 已经成功删除');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', '最高层');
 @define('VIEW_COMMENT', '浏览回复');
 @define('VIEW_ENTRY', '浏览文章');
@@ -1053,7 +1062,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', '找不到查询 %s 的文章' . "\n");
@@ -1122,6 +1130,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', '显示作者的文章数');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', '如果开启这个设定，作者的文章会显示在名称旁。');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Show only authors with at least X articles');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', '文章同步');

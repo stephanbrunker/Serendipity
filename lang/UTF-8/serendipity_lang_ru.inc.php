@@ -44,6 +44,7 @@ $i18n_filename_to   = array('_', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('DOWN', 'ВНИЗ');
 @define('PREVIOUS', 'Вперед');
 @define('NEXT', 'Назад');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'записи');
 @define('CATEGORIES', 'Категории');
 @define('NAME', 'Имя');
@@ -461,6 +462,7 @@ $i18n_filename_to   = array('_', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('CREATE_NEW_CAT', 'Создать новую категорию');
 @define('ALREADY_SUBCATEGORY', '%s уже является подкатегорией %s.');
 @define('NO_CATEGORIES', 'Без категорий');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -868,6 +870,10 @@ $i18n_filename_to   = array('_', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('USERCONF_PASSWORD_DESC', 'Пароль, который вы хотите использовать при авторизации');
 @define('USERCONF_CHECK_PASSWORD', 'Старый пароль');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Если вы изменяете пароль в поле выше, то в этом поле вам нужно ввести ваш текущий пароль.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Уровень доступа');
 @define('USERCONF_USERLEVEL_DESC', 'Этот уровень используется чтобы определить какой тип доступа у пользователя к блогу');
 @define('USERCONF_GROUPS', 'Принадлежность к Группам');
@@ -977,6 +983,10 @@ $i18n_filename_to   = array('_', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Подписаться на эту запись');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Ваш браузер не послал валидной строки HTTP-Referrer. Это может быть вызвано либо неправильно сконфигурированным браузером/прокси сервером, или атакой кросс-запросов Cross Site Request Forgery (XSRF), нацеленной на ваш сайт. Запрошенное вами действие не могло быть завершено.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -999,9 +1009,8 @@ $i18n_filename_to   = array('_', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('APPROVE_TRACKBACK', 'Подвердить обратную ссылку');
 @define('TRACKBACK_APPROVED', 'Обратная ссылка #%s была успешно подтверждена');
 @define('TRACKBACK_DELETED', 'Обратная ссылка #%s была успешно удалена');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Верхний уровень');
 @define('VIEW_COMMENT', 'Просмотреть комментарий');
 @define('VIEW_ENTRY', 'Просмотреть запись');
@@ -1053,7 +1062,6 @@ $i18n_filename_to   = array('_', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Не было найдено записей по завпросу %s' . "\n");
@@ -1122,6 +1130,8 @@ $i18n_filename_to   = array('_', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Показывать количество записей возле имени автора?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Если эта опция включена, то в скобках возле имени автора приводится общее число сделанных им записей.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Show only authors with at least X articles');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Синхронизация');

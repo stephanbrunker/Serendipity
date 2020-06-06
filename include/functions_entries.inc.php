@@ -98,6 +98,8 @@ function serendipity_fetchCategoryInfo($categoryid, $categoryname = '') {
                          c.category_name,
                          c.category_description,
                          c.category_icon,
+                         c.xmlimage,
+                         c.mailimage,
                          c.parentid,
                          c.hide_sub
                     FROM {$serendipity['dbPrefix']}category AS c
@@ -112,13 +114,15 @@ function serendipity_fetchCategoryInfo($categoryid, $categoryname = '') {
                          c.category_name,
                          c.category_description,
                          c.category_icon,
+                         c.xmlimage,
+                         c.mailimage,
                          c.parentid,
                          c.hide_sub
                     FROM {$serendipity['dbPrefix']}category AS c
                    WHERE categoryid = " . (int)$categoryid;
 
-        $ret =& serendipity_db_query($query);
-        return $ret[0];
+        $ret =& serendipity_db_query($query, true, 'assoc');
+        return $ret;
     }
 }
 
@@ -1816,4 +1820,51 @@ function serendipity_getCategoryRoot($id) {
                                   AND n.categoryid = " . (int)$id . "
                              ORDER BY n.category_left DESC, p.category_left ASC");
     return $r;
+}
+
+function serendipity_printCategoryPage($cInfo) {
+    global $serendipity;
+    $catlistarray = array();
+    foreach ($cInfo as &$cat) {
+        if (empty($cat['xmlimage'])) {
+            $cat['xmlimage'] = serendipity_getTemplateFile('img/subtome.png');
+            $cat['feedURL'] = serendipity_feedAuthorURL($cat, 'serendipityHTTPPath');
+        } elseif ($cat['xmlimage'] == "'none'" || $cat['xmlimage'] == 'none') {
+            $cat['xmlimage'] = '';
+        }
+        if (empty($cat['mailimage'])) {
+            $cat['mailimage'] = serendipity_getTemplateFile('img/mail.png');
+            $cat['subscribeURL'] = serendipity_rewriteURL(PATH_SUBSCRIBE . '/category/' . $cat['categoryid'], 'serendipityHTTPPath');
+        } elseif ($cat['mailimage'] == "'none'" || $cat['mailimage'] == 'none') {
+            $cat['mailimage'] = '';
+        }
+        $catlistarray[] = $cat['category_name'];
+    }
+    unset($cat);
+
+    $catlist = implode(' ' . STR_AND . ' ', $catlistarray);
+    $serendipity['smarty']->assign('categories', $cInfo);
+    $serendipity['smarty']->assign('catlist', $catlist);
+    serendipity_smarty_fetch('CATEGORY', 'category.tpl', true);
+}
+
+function serendipity_printAuthorPage($aInfo) {
+    global $serendipity;
+    if (empty($aInfo['xmlimage'])) {
+        $aInfo['xmlimage'] = serendipity_getTemplateFile('img/subtome.png');
+        $aInfo['feedURL'] = serendipity_feedAuthorURL($aInfo, 'serendipityHTTPPath');
+    } elseif ($aInfo['xmlimage'] == "'none'" || $aInfo['xmlimage'] == 'none') {
+        $aInfo['xmlimage'] = '';
+    }
+    if (empty($aInfo['mailimage'])) {
+        $aInfo['mailimage'] = serendipity_getTemplateFile('img/mail.png');
+        $aInfo['subscribeURL'] = serendipity_rewriteURL(PATH_SUBSCRIBE . '/author/' . $aInfo['authorid'], 'serendipityHTTPPath');
+    } elseif ($aInfo['mailimage'] == "'none'" || $aInfo['mailimage'] == 'none') {
+        $aInfo['mailimage'] = '';
+    }
+
+    serendipity_plugin_api::hook_event('multilingual_strip_langs',$aInfo, array('description'));
+
+    $serendipity['smarty']->assign('author', $aInfo);
+    serendipity_smarty_fetch('AUTHOR', 'author.tpl', true);
 }

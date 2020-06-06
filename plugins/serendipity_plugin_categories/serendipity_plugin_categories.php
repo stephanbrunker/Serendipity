@@ -15,7 +15,7 @@ class serendipity_plugin_categories extends serendipity_plugin
         $propbag->add('description', CATEGORY_PLUGIN_DESC);
         $propbag->add('stackable',     true);
         $propbag->add('author',        'Serendipity Team');
-        $propbag->add('version',       '2.05.2');
+        $propbag->add('version',       '2.05.5');
         $propbag->add('configuration', array('title', 'authorid', 'parent_base', 'hide_parent', 'image', 'imagemail', 'sort_order', 'sort_method', 'allow_select', 'hide_parallel', 'show_count', 'show_all', 'smarty'));
         $propbag->add('groups',        array('FRONTEND_VIEWS'));
     }
@@ -116,14 +116,14 @@ class serendipity_plugin_categories extends serendipity_plugin
                 $propbag->add('type',         'string');
                 $propbag->add('name',         XML_IMAGE_TO_DISPLAY);
                 $propbag->add('description',  XML_IMAGE_TO_DISPLAY_DESC);
-                $propbag->add('default',     serendipity_getTemplateFile('img/xml.gif'));
+                $propbag->add('default',     '');
                 break;
 
             case 'imagemail':
                 $propbag->add('type',         'string');
                 $propbag->add('name',         MAIL_IMAGE_TO_DISPLAY);
                 $propbag->add('description',  MAIL_IMAGE_TO_DISPLAY_DESC);
-                $propbag->add('default',     serendipity_getTemplateFile('img/mail.gif'));
+                $propbag->add('default',     '');
                 break;
 
             case 'smarty':
@@ -335,5 +335,3 @@ class serendipity_plugin_categories extends serendipity_plugin
     }
 
 }
-
-?>

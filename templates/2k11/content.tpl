@@ -3,6 +3,8 @@
 {elseif $content_message}
     <p class="content_msg">{$content_message}</p>
 {/if}
+{$AUTHOR}
+{$CATEGORY}
 {$ENTRIES}
 {$ARCHIVES}
 {$SUBSCRIBE}

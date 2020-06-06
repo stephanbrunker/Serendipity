@@ -44,6 +44,7 @@
 @define('DOWN', 'NED');
 @define('PREVIOUS', 'Forrige');
 @define('NEXT', 'Næste');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'artikler');
 @define('CATEGORIES', 'Kategorier');
 @define('NAME', 'Navn');
@@ -461,6 +462,7 @@
 @define('CREATE_NEW_CAT', 'Opret ny kategori');
 @define('ALREADY_SUBCATEGORY', '%s er allerede en underkategori af %s.');
 @define('NO_CATEGORIES', 'Ingen kategorier');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -868,6 +870,10 @@
 @define('USERCONF_PASSWORD_DESC', 'Kodeordet du vil bruge for at logge ind i bloggen');
 @define('USERCONF_CHECK_PASSWORD', 'Nuværende kodeord');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Hvis du ændrer kodeord i feltet herover skal du indtaste dit nuværende kodeord her.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Adgangsniveau');
 @define('USERCONF_USERLEVEL_DESC', 'Dette niveau er brugt til at bestemme hvilken type adgang brugeren har til bloggen');
 @define('USERCONF_GROUPS', 'Gruppe medlemsskab');
@@ -977,6 +983,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Abonnér på denne artikel');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Your browser did not sent a valid HTTP-Referrer string. This may have either been caused by a misconfigured browser/proxy or by a Cross Site Request Forgery (XSRF) aimed at you. The action you requested could not be completed.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -999,9 +1009,8 @@
 @define('APPROVE_TRACKBACK', 'Godkend trackback');
 @define('TRACKBACK_APPROVED', 'Trackback #%s er blevet godkendt');
 @define('TRACKBACK_DELETED', 'Trackback #%s er blevet slettet');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Topniveau');
 @define('VIEW_COMMENT', 'Vis kommentar');
 @define('VIEW_ENTRY', 'Vis artikel');
@@ -1053,7 +1062,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Ingen artikler blev fundet som indeholdt %s' . "\n");
@@ -1122,6 +1130,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Vis antal artikler ved siden af forfatternavn?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Hvis aktiv, vises antallet af artikler forfatteren har skrevet i paranteser ved siden af forfatternavnet.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Show only authors with at least X articles');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Syndikering');

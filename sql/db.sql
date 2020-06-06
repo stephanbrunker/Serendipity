@@ -21,7 +21,11 @@ create table {PREFIX}authors (
   email varchar(128) not null default '',
   userlevel int(4) {UNSIGNED} not null default '0',
   right_publish int(1) default '1',
-  hashtype int(1) default '0'
+  hashtype int(1) default '0',
+  description text null default null,
+  image varchar(255) null default null,
+  mailimage varchar(255) null default null,
+  xmlimage varchar(255) null default null
 ) {UTF_8};
 
 create table {PREFIX}groups (
@@ -222,7 +226,9 @@ CREATE TABLE {PREFIX}category (
   category_right int(11) default '0',
   parentid int(11) DEFAULT '0' NOT NULL,
   sort_order int(11),
-  hide_sub int(1)
+  hide_sub int(1),
+  mailimage varchar(255) null default null,
+  xmlimage varchar(255) null default null
 ) {UTF_8};
 
 CREATE INDEX categorya_idx ON {PREFIX}category (authorid);

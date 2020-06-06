@@ -44,6 +44,7 @@ $i18n_unknown = 'tw';
 @define('DOWN', '下');
 @define('PREVIOUS', '上一頁');
 @define('NEXT', '下一頁');
+@define('STR_AND', 'and');
 @define('ENTRIES', '文章');
 @define('CATEGORIES', '類別');
 @define('NAME', '名稱');
@@ -461,6 +462,7 @@ $i18n_unknown = 'tw';
 @define('CREATE_NEW_CAT', '新增類別');
 @define('ALREADY_SUBCATEGORY', '%s 已經是此類別的子類別 %s.');
 @define('NO_CATEGORIES', '沒有類別');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -868,6 +870,10 @@ $i18n_unknown = 'tw';
 @define('USERCONF_PASSWORD_DESC', '您登入網誌的密碼');
 @define('USERCONF_CHECK_PASSWORD', '舊密碼');
 @define('USERCONF_CHECK_PASSWORD_DESC', '如果您改變了密碼，請將新密碼輸入到這個欄位。');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', '權限');
 @define('USERCONF_USERLEVEL_DESC', '這個選項可以設定此作者在這個網誌內的權限');
 @define('USERCONF_GROUPS', '會員群組');
@@ -977,6 +983,10 @@ $i18n_unknown = 'tw';
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', '訂閱這篇文章');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', '您的瀏覽器傳送了錯誤的 HTTP-Referrer 字串。可能是因為 browser/proxy 的錯誤設定或是 Cross Site Request Forgery (XSRF) 的關係。您的動作無法完成。');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -999,9 +1009,8 @@ $i18n_unknown = 'tw';
 @define('APPROVE_TRACKBACK', '認可引用');
 @define('TRACKBACK_APPROVED', '引用 #%s 已經通過審核');
 @define('TRACKBACK_DELETED', '引用 #%s 已經成功刪除');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', '最高層');
 @define('VIEW_COMMENT', '瀏覽迴響');
 @define('VIEW_ENTRY', '瀏覽文章');
@@ -1053,7 +1062,6 @@ $i18n_unknown = 'tw';
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', '找不到此查詢 %s 的文章' . "\n");
@@ -1122,6 +1130,8 @@ $i18n_unknown = 'tw';
 @define('AUTHORS_SHOW_ARTICLE_COUNT', '顯示作者的文章數？');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', '如果開啟這個設定，作者的文章數會顯示在名稱旁邊。');
 @define('PLUGIN_AUTHORS_MINCOUNT', '顯示多於 X 文章的作者');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', '文章同步');

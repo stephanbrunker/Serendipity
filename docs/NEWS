@@ -1,3 +1,24 @@
+Version 2.4-alpha5 (subscription branch)
+------------------------------------------------------------------------
+
+   * added a description for the category icon with size recommendation
+   * expanded the category description field to three rows textarea
+   * added an author page which leads the authors' entry list at
+     /author/ , including an author picture, an author description
+     and subscribe buttons for feed and email subscriptions
+     everything (short of the title) can be hidden in the configuration
+   * added a similar lead for the category page, with the difference 
+     that multiple categories can be possible and the image and 
+     description already existed
+   * changed the serendipity_addCategory and serendipity_updateCategory
+     functions to include the new fields
+   * changed the output from serendipity_fetchCategoryInfo to single 
+     row output, corrected usages of this function
+   * replaced the serendipity_fetchUsers function with the simpler
+     serendipity_fetchAuthor where possible
+   * corrected the page title for the category page, including the multi
+     option now
+
 Version 2.4-alpha4 (subscription branch)
 ------------------------------------------------------------------------
 
@@ -108,7 +129,6 @@ Version 2.4-alpha3 (subscription branch)
    cache for multilingual which is atm mostly disabled.
    The new template pages also need to be transcripted to the other
    templates, atm everything is only working for the 2k11 theme.
-   
 
 Version 2.4-alpha2 ()
 ------------------------------------------------------------------------

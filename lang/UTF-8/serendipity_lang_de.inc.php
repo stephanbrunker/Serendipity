@@ -42,6 +42,7 @@
 @define('DOWN', 'RUNTER');
 @define('PREVIOUS', 'Zurück');
 @define('NEXT', 'Weiter');
+@define('STR_AND', 'und');
 @define('ENTRIES', 'Einträge');
 @define('CATEGORIES', 'Kategorien');
 @define('NAME', 'Name');
@@ -153,7 +154,7 @@
 @define('HTML_NUGGET', 'HTML-Klotz');
 @define('TITLE_FOR_NUGGET', 'Titel für den Klotz');
 @define('COMMENT_ADDED', 'Kommentar wurde hinzugefügt. ');
-@define('ENTRIES_FOR', 'Einträge für %s');
+@define('ENTRIES_FOR', 'Einträge von %s');
 @define('NO_ENTRIES_TO_PRINT', 'Keine Einträge vorhanden');
 @define('COMMENT_DELETE_CONFIRM', 'Soll der Kommentar #%d von %s wirklich gelöscht werden?');
 @define('DELETE_SURE', 'Soll #%s permanent gelöscht werden?');
@@ -459,6 +460,7 @@
 @define('CREATE_NEW_CAT', 'Neue Kategorie');
 @define('ALREADY_SUBCATEGORY', '%s ist bereits eine Unterkategorie von %s.');
 @define('NO_CATEGORIES', 'Keine Kategorien');
+@define('CATEGORY_IMAGE_DESC', 'Bild welches wie ein Initial am Anfang jedes Artikels dieser Kategorie gezeigt wird. Empfohlene Größe 128x128 Pixel, weniger bei der Verwendung multipler Kategorien pro Eintrag.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Fehler beim Vergleich der Prüfsummen! (Keine Prüfsummendatei checksums.inc.php im Hauptverzeichnis gefunden)');
@@ -866,6 +868,10 @@
 @define('USERCONF_PASSWORD_DESC', 'Ihr Passwort');
 @define('USERCONF_CHECK_PASSWORD', 'Altes Passwort');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Falls Sie das Passwort im vorhergehenden Feld ändern, müssen Sie das aktuelle Password in diesem Feld eingeben.');
+@define('USERCONF_DESCRIPTION', 'Beschreibungstext');
+@define('USERCONF_DESCRIPTION_DESC', 'Öffentliche Kurzbeschreibung des Authors, zum Verstecken leer lassen');
+@define('USERCONF_IMAGE', 'Benutzerbild');
+@define('USERCONF_IMAGE_DESC', 'Öffentliches Bild des Authors, zum Verstecken leer lassen');
 @define('USERCONF_USERLEVEL', 'Zugriffsrechte');
 @define('USERCONF_USERLEVEL_DESC', 'Zugriffsrechte bestimmen die Art und den Umfang des Zugriffs eines Benutzers auf die Funkionalitäten des Blogs');
 @define('USERCONF_GROUPS', 'Gruppenzugehörigkeit');
@@ -975,6 +981,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'Sie können auch über neue Kommentare informiert werden ohne einen zu verfassen. Bitte geben Sie ihre email-Adresse unten ein.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Bei Aktualisierung dieser Kommentare benachrichtigen');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed für %s');
+@define('SUBSCRIBE_TO_TITLE', 'Abonniere %s per Mail');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Ihr Browser hat keinen gültigen HTTP-Referrer übermittelt. Dies kann entweder daher kommen, dass Ihr Browser/Proxy nicht korrekt konfiguriert ist, oder dass Sie Opfer einer "Cross Site Request Forgery (XSRF)" waren, mit der man Sie zu ungewollten Änderungen zwingen wollte. Die angeforderte Aktion konnte daher nicht durchgeführt werden.');
 @define('NAVLINK_AMOUNT', 'Anzahl der Links in der Navigationsleiste (Themes verwalten-Seite muss danach neu geladen werden)');
@@ -997,9 +1007,8 @@
 @define('APPROVE_TRACKBACK', 'Trackback bewilligen');
 @define('TRACKBACK_APPROVED', 'Trackback #%s wurde erfolgreich bewilligt.');
 @define('TRACKBACK_DELETED', 'Trackback #%s wurde erfolgreich gelöscht.');
-@define('COMMENT_NOTOKENMATCH', 'Der Kommentar-Link ist nicht mehr gültig, oder Kommentar #%s wurde bereits akzeptiert oder gelöscht.');
-@define('TRACKBACK_NOTOKENMATCH', 'Der Kommentar-Link ist nicht mehr gültig, oder Trackback #%s wurde bereits akzeptiert oder gelöscht.');
-@define('BADTOKEN', 'Ungültiger Kommentar-Link');
+@define('COMMENT_DELETE_NOMATCH', 'Kommentar oder Trackback #%s wurde bereits akzeptiert oder gelöscht.');
+@define('BADTOKEN', 'Ungültiger oder abgelaufener Kommentar-Link');
 @define('TOP_LEVEL', 'Ursprung');
 @define('VIEW_COMMENT', 'Kommentar ansehen');
 @define('VIEW_ENTRY', 'Eintrag ansehen');
@@ -1051,7 +1060,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'Die angeforderte Seite konnte nicht gefunden werden (404). Dies ist die Standardseite.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Bei der Suche nach "%s" konnte kein Eintrag gefunden werden.' . "\n");
@@ -1120,6 +1128,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Anzahl der Artikel neben dem Autor-Namen anzeigen? ');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Wenn diese Option aktiviert ist, wird die Anzahl der von diesem Autor verfassten Artikel in Klammern neben seinem Namen angezeigt.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Nur Autoren mit mindestens X Beiträgen anzeigen');
+@define('AUTHORS_SHOW_ALL', 'Link für "alle Autoren"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Zeigt einen Link zur Homepage beschriftet mit "alle Autoren"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Syndication');

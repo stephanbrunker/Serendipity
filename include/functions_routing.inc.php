@@ -208,7 +208,7 @@ function serveAuthorPage($matches) {
     $serendipity['GET']['viewAuthor'] = $matches[1];
     $serendipity['GET']['action'] = 'read';
 
-    $uInfo = serendipity_fetchUsers($serendipity['GET']['viewAuthor']);
+    $uInfo = serendipity_fetchAuthor($serendipity['GET']['viewAuthor']);
 
     if (!is_array($uInfo)) {
         $serendipity['view'] = '404';
@@ -216,11 +216,14 @@ function serveAuthorPage($matches) {
         header('HTTP/1.0 404 Not found');
         header('Status: 404 Not found');
     } else {
-        $serendipity['head_title']    = sprintf(ENTRIES_FOR, $uInfo[0]['realname']);
+        $serendipity['head_title']    = sprintf(ENTRIES_FOR, $uInfo['realname']);
         $serendipity['head_subtitle'] = $serendipity['blogTitle'];
+        serendipity_smarty_init();
+        serendipity_printAuthorPage($uInfo);
     }
 
     include(S9Y_INCLUDE_PATH . 'include/genpage.inc.php');
+    
 }
 
 function serveCategory($matches) {
@@ -243,25 +246,36 @@ function serveCategory($matches) {
     $serendipity['GET']['action'] = 'read';
 
     $_args = locateHiddenVariables($serendipity['uriArguments']);
+    $cInfo = array();
 
     if (!$is_multicat) {
         $matches[1] = serendipity_searchPermalink($serendipity['permalinkCategoryStructure'], implode('/', $_args), $matches[1], 'category');
         $serendipity['GET']['category'] = $matches[1];
+        $cInfo[0] = serendipity_fetchCategoryInfo($serendipity['GET']['category']);  
+    } else {
+        foreach ( $serendipity['POST']['multiCat'] as $cat ) {
+            $cInfo[] = serendipity_fetchCategoryInfo((int)$cat);
+        }
     }
-    $cInfo = serendipity_fetchCategoryInfo($serendipity['GET']['category']);
-    serendipity_plugin_api::hook_event('multilingual_strip_langs',$cInfo, array('category_name'));
 
-    if (!is_array($cInfo)) {
+    serendipity_plugin_api::hook_event('multilingual_strip_langs',$cInfo, array('category_name', 'category_description'));    
+
+    if (!is_array($cInfo[0])) {
         $serendipity['view'] = '404';
         $serendipity['viewtype'] = '404_2';
         header('HTTP/1.0 404 Not found');
         header('Status: 404 Not found');
     } else {
-        $serendipity['head_title'] = $cInfo['category_name'];
+        foreach($cInfo as $cat) {
+            $serendipity['head_title'] = $cat['category_name'] . ' - ';
+        }
+        $serendipity['head_title'] = trim($serendipity['head_title'], ' -');
         if (isset($serendipity['GET']['page'])) {
-            $serendipity['head_title'] .= " - " . serendipity_specialchars($serendipity['GET']['page']);
+            $serendipity['head_title'] .= ' - ' . serendipity_specialchars($serendipity['GET']['page']);
         }
         $serendipity['head_subtitle'] = $serendipity['blogTitle'];
+        serendipity_smarty_init();
+        serendipity_printCategoryPage($cInfo);
     }
 
     include(S9Y_INCLUDE_PATH . 'include/genpage.inc.php');
@@ -388,8 +402,8 @@ function serveSubscribe($type, $id = NULL) {
         $serendipity['GET']['action'] = 'subscribe';
         
     }
-        include(S9Y_INCLUDE_PATH . 'include/genpage.inc.php');
-    }
+    include(S9Y_INCLUDE_PATH . 'include/genpage.inc.php');
+}
 
 function serveOptin($hash) {
     global $serendipity;
@@ -475,8 +489,58 @@ function serveUnsubscribeLegacy($email, $target_id) {
     }
 
     include(S9Y_INCLUDE_PATH . 'include/genpage.inc.php');
-    $serendipity['smarty']->display(serendipity_getTemplateFile('index.tpl', 'serendipityPath'));
-    exit;
+}
+
+function serveApproveComment($id, $token = false) {
+    global $serendipity;
+    switch (serendipity_approveComment($id, false, false, $token)) {
+        case 'comment_approved':
+            $serendipity['smarty_custom_vars']['content_message'] = sprintf (COMMENT_APPROVED, $id);
+            break;
+        case 'trackback_approved':
+            $serendipity['smarty_custom_vars']['content_message'] = sprintf (TRACKBACK_APPROVED, $id);
+            break;
+        case 'bad_token':
+            $serendipity['smarty_custom_vars']['content_message'] = sprintf (COMMENT_NOTOKENMATCH, $id);
+            break;
+        case 'no_commentId':
+            $serendipity['smarty_custom_vars']['content_message'] = BADTOKEN;
+            break;
+        case 'access_denied':
+            $serendipity['smarty_custom_vars']['content_message'] = PERM_DENIED;
+            break;
+    }
+
+    // show normal index.tpl with message
+    $serendipity['view'] = 'notification';
+    $serendipity['GET']['action'] = 'custom';
+    include(S9Y_INCLUDE_PATH . 'include/genpage.inc.php');
+}
+
+function serveDeleteComment($id, $token = false) {
+    global $serendipity;
+    switch (serendipity_deleteComment($id, $token)) {
+        case 'comment_deleted':
+            $serendipity['smarty_custom_vars']['content_message'] = sprintf (COMMENT_DELETED, $id);
+            break;
+        case 'trackback_deleted':
+            $serendipity['smarty_custom_vars']['content_message'] = sprintf (TRACKBACK_DELETED, $id);
+            break;
+        case 'bad_token':
+            $serendipity['smarty_custom_vars']['content_message'] = sprintf (BADTOKEN, $id);
+            break;
+        case 'no_commentId':
+            $serendipity['smarty_custom_vars']['content_message'] = sprintf (COMMENT_DELETE_NOMATCH, $id);
+            break;
+        case 'access_denied':
+            $serendipity['smarty_custom_vars']['content_message'] = PERM_DENIED;
+            break;
+    }
+
+    // show normal index.tpl with message
+    $serendipity['view'] = 'notification';
+    $serendipity['GET']['action'] = 'custom';
+    include(S9Y_INCLUDE_PATH . 'include/genpage.inc.php');
 }
 
 function serveFeed($matches) {

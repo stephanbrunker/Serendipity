@@ -272,4 +272,3 @@ class serendipity_plugin_recententries extends serendipity_plugin
 }
 
 /* vim: set sts=4 ts=4 smartindent autoindent : */
-?>

@@ -42,6 +42,7 @@
 @define('DOWN', '√”›·');
 @define('PREVIOUS', '«·”«»ﬁ');
 @define('NEXT', '«· «·Ì');
+@define('STR_AND', 'and');
 @define('ENTRIES', '«·„Ê÷Ê⁄');
 @define('CATEGORIES', '√ﬁ”«„');
 @define('NAME', '«·√”„');
@@ -459,6 +460,7 @@
 @define('CREATE_NEW_CAT', '«‰‘«¡ ﬁ”„ ÃœÌœ');
 @define('ALREADY_SUBCATEGORY', '«‰ %s ﬁ”„ ›—⁄Ì „ÊÃÊœ „‰ %s');
 @define('NO_CATEGORIES', '·„ Ì „ «œ—«Ã √ﬁ”«„');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -866,6 +868,10 @@
 @define('USERCONF_PASSWORD_DESC', 'ﬂ·„… «·„—Ê— «· Ì  ” Œœ„Â« »«· ”ÃÌ· «·œŒÊ· ›Ì „œÊ‰ ﬂ');
 @define('USERCONF_CHECK_PASSWORD', 'ﬂ·„… «·„—Ê— «·ﬁœÌ„…');
 @define('USERCONF_CHECK_PASSWORD_DESC', '√‰ €Ì—… ﬂ·„… «·„—Ê— ›Ì «·Õﬁ· «·”«»ﬁ ° ›√‰Â ÌÃ» √‰  œŒ· ﬂ·„… «·„—Ê— «·Õ«·Ì… ›Ì Â–« «·Õﬁ·');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', '„” ÊÏ «·Ê’Ê·');
 @define('USERCONF_USERLEVEL_DESC', 'Â‰«  Ê÷ÌÕ ·„” ÊÏ Ê’·«ÕÌ«  œŒÊ· «·„” Œœ„ ≈·Ï «·„Ã·…');
 @define('USERCONF_GROUPS', '„Ã„Ê⁄… «·«⁄÷«¡');
@@ -975,6 +981,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', '«·«‘ —«ﬂ ›Ì Â–« «·„Ê÷Ê⁄');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Your browser did not sent a valid HTTP-Referrer string. This may have either been caused by a misconfigured browser/proxy or by a Cross Site Request Forgery (XSRF) aimed at you. The action you requested could not be completed.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -997,9 +1007,8 @@
 @define('APPROVE_TRACKBACK', '„Ê«›ﬁÂ ⁄·Ï —«»ÿ «· ⁄ﬁÌ»');
 @define('TRACKBACK_APPROVED', ' ⁄ﬁ» «·—«»ÿ #%s  „ «·„Ê«›ﬁ… ⁄·ÌÂ »‰Ã«Õ');
 @define('TRACKBACK_DELETED', ' ⁄ﬁ» «·—«»ÿ #%s  „ Õ–›Â »‰Ã«Õ');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', '„” ÊÏ √⁄·Ï');
 @define('VIEW_COMMENT', '«⁄—÷ «· ⁄·Ìﬁ');
 @define('VIEW_ENTRY', '√⁄—÷ «·„Ê÷Ê⁄');
@@ -1051,7 +1060,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', '·„ Ì „ «·⁄ÀÊ— ⁄·Ï «Ì „Ê«÷Ì⁄ ÃœÌœ… %s' . "\n");
@@ -1120,6 +1128,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', '√⁄—÷ ⁄œœ „Ê«÷Ì⁄ «·ﬂ« » »Ã«‰» √”„Âø');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', '›Ì Õ«·  ‘€Ì· Â–« «·ŒÌ«— ›≈‰ ⁄œœ «·„Ê«÷Ì⁄ «·Œ«’… »Â–« «·ﬂ« » ”Ê› Ì „ ⁄—÷Â« »Ã«‰» ≈”„Â');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Show only authors with at least X articles');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', '„‰‘Ê—');

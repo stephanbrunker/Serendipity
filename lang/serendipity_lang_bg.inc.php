@@ -47,6 +47,7 @@ $i18n_filename_to   = array('-', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('DOWN', 'Надолу');
 @define('PREVIOUS', 'Назад');
 @define('NEXT', 'Напред');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'Статии:');
 @define('CATEGORIES', 'Категории');
 @define('NAME', 'Име');
@@ -464,6 +465,7 @@ $i18n_filename_to   = array('-', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('CREATE_NEW_CAT', 'Създаване на нова категория');
 @define('ALREADY_SUBCATEGORY', '%s вече е подкатегория на %s.');
 @define('NO_CATEGORIES', 'Няма категории');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Невъзможност за сравняване на контролните суми! (Липсва файл checksums.inc.php в главната директория)');
@@ -871,6 +873,10 @@ $i18n_filename_to   = array('-', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('USERCONF_PASSWORD_DESC', 'Паролата, която искате да използвате за влизане в блога');
 @define('USERCONF_CHECK_PASSWORD', 'Стара парола');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Ако смените паролата в горното поле, трябва да въведете текущата парола в това поле.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Ниво на достъп');
 @define('USERCONF_USERLEVEL_DESC', 'Това ниво определя какъв вид достъп ще има потребителя до блога');
 @define('USERCONF_GROUPS', 'Членство в групи');
@@ -980,6 +986,10 @@ $i18n_filename_to   = array('-', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Абониране за тази статия');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Вашият браузър не изпрати правилен низ Referrer на HTTP. Това може да е предизвикано или от неправилно настроен браузър/прокси, или от междусайтова фалшификация на заявка (Cross Site Request Forgery - XSRF), прицелена към вас. Действието, което сте заявили, не може да бъде завършено.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -1002,9 +1012,8 @@ $i18n_filename_to   = array('-', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('APPROVE_TRACKBACK', 'Одобряване на проследяване');
 @define('TRACKBACK_APPROVED', 'Проследяване №&#160;%s е одобрено успешно');
 @define('TRACKBACK_DELETED', 'Проследяване №&#160;%s е изтрито успешно');
-@define('COMMENT_NOTOKENMATCH', 'Връзката е с изтекъл срок или коментар #%s вече е бил одобрен или изтрит');
-@define('TRACKBACK_NOTOKENMATCH', 'Връзката е с изтекъл срок или проследяването #%s вече е било одобрено или изтрито');
-@define('BADTOKEN', 'Невалидна връзка за модерация');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Корен');
 @define('VIEW_COMMENT', 'Преглед на коментар');
 @define('VIEW_ENTRY', 'Преглед на статия');
@@ -1056,7 +1065,6 @@ $i18n_filename_to   = array('-', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Няма намерени резултати за %s' . "\n");
@@ -1125,6 +1133,8 @@ $i18n_filename_to   = array('-', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Показване на броя на статиите до името на автора?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Ако тази опция е активирана, броят на статиите от този автор ще бъде показан до името на автора в скоби.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Показване само на автори с най-малко X статии');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Емисии');

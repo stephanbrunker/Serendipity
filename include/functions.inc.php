@@ -1077,10 +1077,10 @@ function serendipity_isResponseClean($d) {
  * @param   int     A possible parentid to a category
  * @return  int     The new category's ID
  */
-function serendipity_addCategory($name, $desc, $authorid, $icon, $parentid) {
+function serendipity_addCategory($name, $desc, $authorid, $parentid, $icon, $xmlimage, $mailimage) {
     global $serendipity;
     $query = "INSERT INTO {$serendipity['dbPrefix']}category
-                    (category_name, category_description, authorid, category_icon, parentid, category_left, category_right)
+                    (category_name, category_description, authorid, category_icon, parentid, category_left, category_right, xmlimage, mailimage)
                   VALUES
                     ('". serendipity_db_escape_string($name) ."',
                      '". serendipity_db_escape_string($desc) ."',
@@ -1088,7 +1088,9 @@ function serendipity_addCategory($name, $desc, $authorid, $icon, $parentid) {
                      '". serendipity_db_escape_string($icon) ."',
                       ". (int)$parentid .",
                        0,
-                       0)";
+                       0,
+                      ". serendipity_db_escape_string($xmlimage) . ",
+                      ". serendipity_db_escape_string($mailimage) . ")";
 
     serendipity_db_query($query);
     $cid = serendipity_db_insert_id('category', 'categoryid');
@@ -1119,7 +1121,7 @@ function serendipity_addCategory($name, $desc, $authorid, $icon, $parentid) {
  * @param   int     The new category subcat hiding
  * @return null
  */
-function serendipity_updateCategory($cid, $name, $desc, $authorid, $icon, $parentid, $sort_order = 0, $hide_sub = 0, $admin_category = '') {
+function serendipity_updateCategory($cid, $name, $desc, $authorid, $parentid, $icon, $xmlimage, $mailimage, $sort_order = 0, $hide_sub = 0, $admin_category = '') {
     global $serendipity;
 
     $query = "UPDATE {$serendipity['dbPrefix']}category
@@ -1127,6 +1129,8 @@ function serendipity_updateCategory($cid, $name, $desc, $authorid, $icon, $paren
                         category_description = '". serendipity_db_escape_string($desc) ."',
                         authorid = ". (int)$authorid .",
                         category_icon = '". serendipity_db_escape_string($icon) ."',
+                        xmlimage = '". serendipity_db_escape_string($xmlimage) ."',
+                        mailimage = '". serendipity_db_escape_string($mailimage) ."',
                         parentid = ". (int)$parentid .",
                         sort_order = ". (int)$sort_order . ",
                         hide_sub = ". (int)$hide_sub . "

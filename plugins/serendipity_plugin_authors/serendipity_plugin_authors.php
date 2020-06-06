@@ -16,8 +16,8 @@ class serendipity_plugin_authors extends serendipity_plugin
         $propbag->add('description', AUTHOR_PLUGIN_DESC);
         $propbag->add('stackable',     true);
         $propbag->add('author',        'Serendipity Team');
-        $propbag->add('version',       '2.2.1'); // NOTE: This plugin is also in the central repository. Commit changes to the core, too :)
-        $propbag->add('configuration', array('image', 'imagemail', 'allow_select', 'title', 'showartcount', 'mincount'));
+        $propbag->add('version',       '2.2.2'); // NOTE: This plugin is also in the central repository. Commit changes to the core, too :)
+        $propbag->add('configuration', array('title', 'image', 'imagemail', 'showartcount', 'mincount', 'showall'));
         $propbag->add('groups',        array('FRONTEND_VIEWS'));
     }
 
@@ -30,7 +30,7 @@ class serendipity_plugin_authors extends serendipity_plugin
             case 'title':
                 $propbag->add('type',          'string');
                 $propbag->add('name',          TITLE);
-                $propbag->add('description',   TITLE);
+                $propbag->add('description',   '');
                 $propbag->add('default',       AUTHORS);
                 break;
 
@@ -38,14 +38,14 @@ class serendipity_plugin_authors extends serendipity_plugin
                 $propbag->add('type',         'string');
                 $propbag->add('name',         XML_IMAGE_TO_DISPLAY);
                 $propbag->add('description',  XML_IMAGE_TO_DISPLAY_DESC);
-                $propbag->add('default',     serendipity_getTemplateFile('img/xml.gif'));
+                $propbag->add('default',     '');
                 break;
 
             case 'imagemail':
                 $propbag->add('type',         'string');
                 $propbag->add('name',         MAIL_IMAGE_TO_DISPLAY);
                 $propbag->add('description',  MAIL_IMAGE_TO_DISPLAY_DESC);
-                $propbag->add('default',     serendipity_getTemplateFile('img/mail.gif'));
+                $propbag->add('default',     '');
                 break;
 
             case 'showartcount':
@@ -60,6 +60,13 @@ class serendipity_plugin_authors extends serendipity_plugin
                 $propbag->add('name',         PLUGIN_AUTHORS_MINCOUNT);
                 $propbag->add('description',  '');
                 $propbag->add('default',      '');
+                break;
+
+            case 'showall':
+                $propbag->add('type',         'boolean');
+                $propbag->add('name',         AUTHORS_SHOW_ALL);
+                $propbag->add('description',  AUTHORS_SHOW_ALL_DESC);
+                $propbag->add('default',      'false');
                 break;
 
             default:
@@ -83,6 +90,7 @@ class serendipity_plugin_authors extends serendipity_plugin
         $is_count  = serendipity_db_bool($this->get_config('showartcount', 'false'));
         $mincount  = (int)$this->get_config('mincount');
         $authors   = serendipity_fetchUsers(null, 'hidden', $is_count);
+        $showall   = serendipity_db_bool($this->get_config('showall', 'false'));
         $html      = '';
 
         $image = $this->get_config('image', serendipity_getTemplateFile('img/xml.gif'));
@@ -111,7 +119,7 @@ class serendipity_plugin_authors extends serendipity_plugin
                     $html .= '    <a class="serendipity_xml_icon" href="'. serendipity_feedAuthorURL($auth, 'serendipityHTTPPath') .'"><img src="'. $image .'" alt="XML" style="border: 0px" /></a> ';
                 }
                 if ( !empty($imagemail) ) {
-                    $html .= '    <a class="serendipity_mail_icon" href="'. serendipity_rewriteURL(PATH_SUBSCRIBE . '/author/' . $auth['authorid'], 'baseURL') .'"><img src="'. $imagemail .'" alt="Mail" style="border: 0px" /></a> ';
+                    $html .= '    <a class="serendipity_mail_icon" href="'. serendipity_rewriteURL(PATH_SUBSCRIBE . '/author/' . $auth['authorid'], 'serendipityHTTPPath') .'"><img src="'. $imagemail .'" alt="Mail" style="border: 0px" /></a> ';
                 }
                 $html .= '    <a href="'. serendipity_authorURL($auth, 'serendipityHTTPPath') .'" title="'. serendipity_specialchars($auth['realname']) .'">'. serendipity_specialchars($auth['realname']) . $entrycount . '</a>';
                 $html .= '</li>' . "\n";
@@ -120,6 +128,7 @@ class serendipity_plugin_authors extends serendipity_plugin
 
         $html .= '</ul>' . "\n";
 
+        if ($showall) {
         $html .= sprintf(
             '<div><a href="%s" title="%s">%s</a></div>'."\n",
 
@@ -127,8 +136,7 @@ class serendipity_plugin_authors extends serendipity_plugin
             ALL_AUTHORS,
             ALL_AUTHORS
         );
+        }
         print $html;
     }
 }
-
-?>

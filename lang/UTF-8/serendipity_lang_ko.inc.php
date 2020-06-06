@@ -43,6 +43,7 @@
 @define('DOWN', '아래로');
 @define('PREVIOUS', '이전');
 @define('NEXT', '다음');
+@define('STR_AND', 'and');
 @define('ENTRIES', '블로그 글');
 @define('CATEGORIES', '범주');
 @define('NAME', '작성자 이름');
@@ -460,6 +461,7 @@
 @define('CREATE_NEW_CAT', '새로운 범주 만들기');
 @define('ALREADY_SUBCATEGORY', '%s(은)는 이미 %s의 하위 범주입니다.');
 @define('NO_CATEGORIES', '범주 없음');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', '체크섬을 비교하지 못했습니다! (메인 디렉토리에 checksums.inc.php 파일이 없음)');
@@ -867,6 +869,10 @@
 @define('USERCONF_PASSWORD_DESC', '블로그에 로그인하기 위한 암호');
 @define('USERCONF_CHECK_PASSWORD', '이전 암호');
 @define('USERCONF_CHECK_PASSWORD_DESC', '위의 적힌 암호를 변경하려면 여기에 현재 사용중인 암호를 적으십시오.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', '권한 레벨');
 @define('USERCONF_USERLEVEL_DESC', '이 레벨은 블로그에 대해 사용자가 어떤 권한을 가지는지 결정하는데 사용됩니다.');
 @define('USERCONF_GROUPS', '그룹 소속');
@@ -976,6 +982,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', '이 글을 구독하기');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', '브라우저가 유효한 HTTP 진입 경로(referrer) 문자열을 보내지 않았습니다. 브라우저/프록시 설정이 잘못되었거나 당신을 겨냥한 상호 사이트 요청 위조(XSRF) 때문이었을 수 있습니다. 요청한 사항을 처리할 수 없었습니다.');
 @define('NAVLINK_AMOUNT', '내비게이션에 표시할 링크의 수 입력 (스타일 관리 페이지를 다시 불러들여야 함)');
@@ -998,9 +1008,8 @@
 @define('APPROVE_TRACKBACK', '트랙백 승인');
 @define('TRACKBACK_APPROVED', '%s번 트랙백이 성공적으로 승인되었습니다.');
 @define('TRACKBACK_DELETED', '%s번 트랙백이 성공적으로 삭제되었습니다.');
-@define('COMMENT_NOTOKENMATCH', '중재 링크의 유효기간이 지났거나 %s번 덧글이 이미 승인 또는 삭제되었습니다');
-@define('TRACKBACK_NOTOKENMATCH', '중재 링크의 유효기간이 지났거나 %s번 트랙백이 이미 승인 또는 삭제되었습니다');
-@define('BADTOKEN', '유효하지 않은 중재 링크');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', '최상위 (본문)');
 @define('VIEW_COMMENT', '덧글 보기');
 @define('VIEW_ENTRY', '본문 보기');
@@ -1052,7 +1061,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', '검색어 %s(으)로 검색된 글이 없습니다' . "\n");
@@ -1121,6 +1129,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', '작성자 이름 옆에 글의 수 보이기');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', '사용할 경우, 각 작성자의 이름 옆 괄호 속에 해당 작성자가 쓴 글의 수를 표시합니다.');
 @define('PLUGIN_AUTHORS_MINCOUNT', '최소 X개의 글을 쓴 작성자만 보여주기');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', '중개');

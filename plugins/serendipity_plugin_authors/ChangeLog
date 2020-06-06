@@ -1,2 +1,4 @@
+2.2.2   * changed icon base url and default value for icons to empty = default
+        * made link 'all authors' hidden per option
 2.2.1
         * add subscription icon and link

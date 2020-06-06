@@ -43,6 +43,7 @@
 @define('DOWN', 'Aşağı');
 @define('PREVIOUS', 'Önceki');
 @define('NEXT', 'Sonraki');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'Kayıtlar');
 @define('CATEGORIES', 'Konu başlıkları');
 @define('NAME', 'Ad');
@@ -460,6 +461,7 @@
 @define('CREATE_NEW_CAT', 'Yeni konu başlığı oluştur');
 @define('ALREADY_SUBCATEGORY', '%s böyle bir alt konu başlığı var %s.');
 @define('NO_CATEGORIES', 'Konu başlığı yok');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -867,6 +869,10 @@
 @define('USERCONF_PASSWORD_DESC', 'Siteye bağlanma amacıyla kullanacağınız şifreniz');
 @define('USERCONF_CHECK_PASSWORD', 'Eski Şifre');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Eğer şifrenizi değiştirmek istiyorsanız, eski şifrenizi bu alana girmek zorundasınız.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Erişim seviyesi');
 @define('USERCONF_USERLEVEL_DESC', 'Bu bölüm siteniz kullanıcılarının erişim ve yetki seviyelerini belirler');
 @define('USERCONF_GROUPS', 'Kullanıcı Grupları');
@@ -976,6 +982,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Bu yazıya abone ol');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Tarayıcınız HTTP-Ziyaretçi Gönderenler için doğru  karakter dizgesi gönderemedi. Bu tarayıcı ve proxy ayarlarınızın doğru şekilde yapılandırılmamış olmasından kaynaklanabilir ya da Cross Site Request Forgery (XSRF) diye tanımlanan durum ortaya çıkmış olabilir.Yapmak istediğiniz eylem tamamlanamadı.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -998,9 +1008,8 @@
 @define('APPROVE_TRACKBACK', 'Bırakılan ize onay ver');
 @define('TRACKBACK_APPROVED', 'Bırakılan iz #%s onaylandı');
 @define('TRACKBACK_DELETED', 'Bırakılan iz #%s silindi');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'En üst bölüm');
 @define('VIEW_COMMENT', 'Yorumlara bak');
 @define('VIEW_ENTRY', 'Yazılara bak');
@@ -1052,7 +1061,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', ' %s sorunuz için herhangi bir kayıt bulunamadı' . "\n");
@@ -1121,6 +1129,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Yazılarda yazar adı gösterilsin mi?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Bu seçenek açık olursa, yazıların altında yazarın adı da geçecek.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Show only authors with at least X articles');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Abonelik');

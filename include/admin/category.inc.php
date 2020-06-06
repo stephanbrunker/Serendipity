@@ -24,6 +24,8 @@ if (isset($_POST['SAVE']) && serendipity_checkFormToken()) {
     }
 
     $icon     = $serendipity['POST']['cat']['icon'];
+    $xmlimage = $serendipity['POST']['cat']['XMLImage'];
+    $mailimage = $serendipity['POST']['cat']['mailImage'];
     $parentid = (isset($serendipity['POST']['cat']['parent_cat']) && is_numeric($serendipity['POST']['cat']['parent_cat'])) ? $serendipity['POST']['cat']['parent_cat'] : 0;
 
 
@@ -35,7 +37,7 @@ if (isset($_POST['SAVE']) && serendipity_checkFormToken()) {
             $data['category_name'] = $name;
         } else {
             $data['new'] = true;
-            $catid = serendipity_addCategory($name, $desc, $authorid, $icon, $parentid);
+            $catid = serendipity_addCategory($name, $desc, $authorid, $parentid, $icon, $xmlimage, $mailimage);
             serendipity_ACLGrant($catid, 'category', 'read', $serendipity['POST']['cat']['read_authors']);
             serendipity_ACLGrant($catid, 'category', 'write', $serendipity['POST']['cat']['write_authors']);
         }
@@ -53,7 +55,7 @@ if (isset($_POST['SAVE']) && serendipity_checkFormToken()) {
                                                         WHERE categoryid = ". (int)$parentid);
                    $data['subcat'] = sprintf(ALREADY_SUBCATEGORY, serendipity_specialchars($r[0]['category_name']), serendipity_specialchars($name));
                 } else {
-                    serendipity_updateCategory($serendipity['GET']['cid'], $name, $desc, $authorid, $icon, $parentid, $serendipity['POST']['cat']['sort_order'], $serendipity['POST']['cat']['hide_sub'], $admin_category);
+                    serendipity_updateCategory($serendipity['GET']['cid'], $name, $desc, $authorid, $parentid, $icon, $xmlimage, $mailimage, $serendipity['POST']['cat']['sort_order'], $serendipity['POST']['cat']['hide_sub'], $admin_category);
                     serendipity_ACLGrant($serendipity['GET']['cid'], 'category', 'read', $serendipity['POST']['cat']['read_authors']);
                     serendipity_ACLGrant($serendipity['GET']['cid'], 'category', 'write', $serendipity['POST']['cat']['write_authors']);
                 }

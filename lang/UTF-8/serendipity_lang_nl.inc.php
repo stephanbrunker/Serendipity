@@ -44,6 +44,7 @@
 @define('DOWN', 'NEER');
 @define('PREVIOUS', 'Vorige');
 @define('NEXT', 'Volgende');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'artikelen');
 @define('CATEGORIES', 'Categorieën');
 @define('NAME', 'Naam');
@@ -461,6 +462,7 @@
 @define('CREATE_NEW_CAT', 'Maak een nieuwe categorie aan');
 @define('ALREADY_SUBCATEGORY', '%s is reeds een subcategorie van %s.');
 @define('NO_CATEGORIES', 'Geen categorieën');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -868,6 +870,10 @@
 @define('USERCONF_PASSWORD_DESC', 'Het wachtwoord waarmee u zich wilt aanmelden op het weblog');
 @define('USERCONF_CHECK_PASSWORD', 'Oud wachtwoord');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Als u het wachtwoord wijzigt in het veld hierboven moet u het huidige wachtwoord in dit veld invoeren.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Toegangsniveau');
 @define('USERCONF_USERLEVEL_DESC', 'Dit niveau wordt gebruikt om te bepalen wat voor soort rechten de gebruiker heeft tot het weblog');
 @define('USERCONF_GROUPS', 'Groepslidmaatschap');
@@ -977,6 +983,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Abonneer op dit artikel');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Uw browser heeft geen geldig HTTP-Referrer-adres verstuurd. Dit kan veroorzaakt worden door een verkeerd geconfigureerde browser/proxy of door een aanval die tegen u is gericht. Uw actie werd geannuleerd.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -999,9 +1009,8 @@
 @define('APPROVE_TRACKBACK', 'Keur trackback goed');
 @define('TRACKBACK_APPROVED', 'Trackback #%s is goedgekeurd');
 @define('TRACKBACK_DELETED', 'Trackback #%s is verwijderd');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Bovenste niveau');
 @define('VIEW_COMMENT', 'Bekijk reactie');
 @define('VIEW_ENTRY', 'Bekijk artikel');
@@ -1053,7 +1062,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Er zijn geen artikelen gevonden voor zoekopdracht %s' . "\n");
@@ -1122,6 +1130,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Aantal artikelen naast de naam van de auteur tonen?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Deze optie toont tussen haakjes het aantal artikelen van de auteur naast zijn naam.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Toon alleen auteurs met minstens X artikelen');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Verzamelpublicatie');

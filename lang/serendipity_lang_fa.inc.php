@@ -43,6 +43,7 @@
 @define('DOWN', 'پایین');
 @define('PREVIOUS', 'قبل');
 @define('NEXT', 'بعد');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'ارسال');
 @define('CATEGORIES', 'موضوعات');
 @define('NAME', 'نام');
@@ -460,6 +461,7 @@
 @define('CREATE_NEW_CAT', 'ایجاد یک موضوع جدید');
 @define('ALREADY_SUBCATEGORY', '%s قبلا زیر موضوعی از %s بوده.');
 @define('NO_CATEGORIES', 'بدون موضوع');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -867,6 +869,10 @@
 @define('USERCONF_PASSWORD_DESC', 'رمز عبور برای ورود شما به سیستم');
 @define('USERCONF_CHECK_PASSWORD', 'رمز عبور قدیمی');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'اگر می خواهید رمز عبور بالا را تغییر دهید، نیاز دارید که رمز قدیمی را در این فیلد وارد کنید.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'نوع دسترسی');
 @define('USERCONF_USERLEVEL_DESC', 'دسترسی باید یکی از گزینه های روبرو باشد: [USERLEVEL_ADMIN] - مدیر، [USERLEVEL_CHIEF] - رییس نویسندگان، [USERLEVEL_EDITOR] - نویسنده عادی.');
 @define('USERCONF_GROUPS', 'گروه ها');
@@ -976,6 +982,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'وقتی نظری ارسال شد، مرا خبر کن');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'مرورگر شما بخش مربوط به HTTP-Referrer را ارسال نکرده است. ممکن است این مشکل از تنظیمات مرورگر شما یا استفاده از پروکسی یا ... باشد. توانایی انجام درخواست شما وجود ندارد.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -998,9 +1008,8 @@
 @define('APPROVE_TRACKBACK', 'قبول دنبالک');
 @define('TRACKBACK_APPROVED', 'دنبالک #%s با موفقیت افزوده شد');
 @define('TRACKBACK_DELETED', 'دنبالک #%s با موفقیت حذف شد');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'بالاترین سطح');
 @define('VIEW_COMMENT', 'نمایش نظر');
 @define('VIEW_ENTRY', 'نمایش ارسال');
@@ -1052,7 +1061,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'هیچ مقداری برای گزارش %s پیدا نشد' . "\n");
@@ -1121,6 +1129,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'آیا تعداد ارسال های هر نویسنده در مقابل نام وی نمایش داده شود؟');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'اگر این گزینه فعال باشد، تعداد ارسال های یک نویسنده، جلوی نام وی، داخل پرانتز، نمایش داده می شود.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'به نویسندگان حداقل X مطلب نشان داده شود');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'اتصال دهنده');

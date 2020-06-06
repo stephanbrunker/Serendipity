@@ -42,6 +42,7 @@
 @define('DOWN', 'LE');
 @define('PREVIOUS', 'Előző');
 @define('NEXT', 'Következő');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'bejegyzések');
 @define('CATEGORIES', 'Kategóriák');
 @define('NAME', 'Név');
@@ -459,6 +460,7 @@
 @define('CREATE_NEW_CAT', 'Új Kategória Létrehozása');
 @define('ALREADY_SUBCATEGORY', 'A(z) %s már alkategóriája ennek: %s.');
 @define('NO_CATEGORIES', 'Nincsenek kategóriák');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -866,6 +868,10 @@
 @define('USERCONF_PASSWORD_DESC', 'A belépéshez használt jelszó');
 @define('USERCONF_CHECK_PASSWORD', 'Régi jelszó');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Ha a mezőben megváltoztatod a jelszót, itt meg kell adnod a jelenlegit.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Hozzáférési szint');
 @define('USERCONF_USERLEVEL_DESC', 'Ez a szint határozza meg, hogy a szerkesztőnek milyen jogosultságai vannak a blog-hoz');
 @define('USERCONF_GROUPS', 'Csoporttagság');
@@ -975,6 +981,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Feliratkozom erre a bejegyzésre');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'A böngésződ nem küldött érvényes HTTP-Hivatkozó szöveget. Ez több okból lehet, pl. rosszul beállított böngésző, proxy, vagy egy Cross Site Request Forgery (XSRF) támadás áldozata lettél. A kért művelet nem hajtható végre.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -997,9 +1007,8 @@
 @define('APPROVE_TRACKBACK', 'Visszahivatkozás elfogadása');
 @define('TRACKBACK_APPROVED', 'A visszahivatkozást sikeresen elfogadtuk: #%s');
 @define('TRACKBACK_DELETED', 'A visszahivatkozást sikeresen töröltük: #%s');
-@define('COMMENT_NOTOKENMATCH', 'A moderációs link lejárt, vagy a #%s számú hozzászólás már elfogadott/törölt');
-@define('TRACKBACK_NOTOKENMATCH', 'A moderációs link lejárt, vagy a #%s számú visszahivatkozás már elfogadott/törölt');
-@define('BADTOKEN', 'Érvénytelen moderációs link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Legfelső szint');
 @define('VIEW_COMMENT', 'Hozzászólás megtekintése');
 @define('VIEW_ENTRY', 'Bejegyzés megtekintése');
@@ -1051,7 +1060,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Nem találtam semmit (%s)' . "\n");
@@ -1120,6 +1128,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Mutassuk a szerzőkhöz tartozó bejegyzések számát a szerző neve mellett?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Ha ezt engedélyezed, akkor a szerző által létrehozott bejegyzések száma, a neve mellett jelenik meg zárójelben.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Csak a a legalább X bejegyzéssel rendelkező szerzők mutatása');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Integráció - Egyesülés');

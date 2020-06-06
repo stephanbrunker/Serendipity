@@ -54,6 +54,7 @@ $i18n_filename_to = array (
 @define('DOWN', 'DOLE');
 @define('PREVIOUS', 'Predchádzajúce');
 @define('NEXT', 'Ďalšie');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'články');
 @define('CATEGORIES', 'Kategórie');
 @define('NAME', 'Meno');
@@ -471,6 +472,7 @@ $i18n_filename_to = array (
 @define('CREATE_NEW_CAT', 'Vytvoriť novú kategóriu');
 @define('ALREADY_SUBCATEGORY', '%s už je podkategóriou %s.');
 @define('NO_CATEGORIES', 'Žiadne kategórie');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Nie je možné porovnať kontrolné súčty! (v základnom priečinku chýba súbor checksums.ini.php)');
@@ -878,6 +880,10 @@ $i18n_filename_to = array (
 @define('USERCONF_PASSWORD_DESC', 'Vaše heslo');
 @define('USERCONF_CHECK_PASSWORD', 'Staré heslo');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Ak meníte heslo v poli vyššie, musíte zadať pôvodné heslo do tohto poľa.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Úroveň prístupu');
 @define('USERCONF_USERLEVEL_DESC', 'Táto úroveň prístupu určuje práva používateľa weblogu.');
 @define('USERCONF_GROUPS', 'Členstvo v skupinách');
@@ -987,6 +993,10 @@ $i18n_filename_to = array (
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Prihlásiť sa k sledovaniu komentáov tohto článku');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Váš prehliadač nezaslal platný reťazec HTTP-Referrer. To môže byť spôsobené nesprávnym nastavením prehliadača resp. proxy servera alebo ide o tzv. Cross Site Request Forgery (XSRF), ktorý je namierený na Vás. Požadovaný úkon nemohol byť dokončený.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Themes page)');
@@ -1009,9 +1019,8 @@ $i18n_filename_to = array (
 @define('APPROVE_TRACKBACK', 'Schváliť odozvu');
 @define('TRACKBACK_APPROVED', 'Odozva #%s bola schválená');
 @define('TRACKBACK_DELETED', 'Odozva #%s bola vymazaná');
-@define('COMMENT_NOTOKENMATCH', 'Odkazu na schválenie vypršala platnosť, alebo bol komentár č. %s už schválený alebo odstránený');
-@define('TRACKBACK_NOTOKENMATCH', 'Odkazu na schválenie vypršala platnosť, alebo bola odozva č. %s už schválená alebo odstránená');
-@define('BADTOKEN', 'Neplatný odkaz na schválenie');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Najvyššia úroveň');
 @define('VIEW_COMMENT', 'Zobraziť komentár');
 @define('VIEW_ENTRY', 'Zobraziť článok');
@@ -1063,7 +1072,6 @@ $i18n_filename_to = array (
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Nebol nájdený žianen článok obsahujúci výraz "%s"' . "\n");
@@ -1132,6 +1140,8 @@ $i18n_filename_to = array (
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Zobraziť počet článkov pri autorovom mene?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Ak je táto voľba zapnutá, vedľa mena autora bude v zátvorke zobrazený počet jeho článkov.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Zobraziť iba autorov s viac ako X článkami');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Spolupráca');

@@ -42,6 +42,7 @@
 @define('DOWN', 'ALAS');
 @define('PREVIOUS', 'Edellinen');
 @define('NEXT', 'Seuraava');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'Merkinnät');
 @define('CATEGORIES', 'Kategoriat');
 @define('NAME', 'Nimi');
@@ -459,6 +460,7 @@
 @define('CREATE_NEW_CAT', 'Luo uusi kategoria');
 @define('ALREADY_SUBCATEGORY', '%s on jo %s alikategoria.');
 @define('NO_CATEGORIES', 'Ei kategorioita');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -866,6 +868,10 @@
 @define('USERCONF_PASSWORD_DESC', 'Nimimerkkisi salasana');
 @define('USERCONF_CHECK_PASSWORD', 'Nykyinen salasana');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Jos vaihdoit yllä salasanaasi, kirjoita nykyinen tähän.');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Käyttäjätaso');
 @define('USERCONF_USERLEVEL_DESC', 'Käyttäjätasoa käytetään määrittämän käyttäjän oikeudet tähän blogiin.');
 @define('USERCONF_GROUPS', 'Ryhmäjäsenyydet');
@@ -975,6 +981,10 @@
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Seuraa tätä merkintää');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Selaimesi ei lähettänyt kelvollista HTTP-Referrer merkkijonoa. Tämä johtuu joko väärin konfiguroidusta selaimesta/proxystä tai Cross Site Request väärennöshyökkäyksestä (XSRF). Pyytämääsi toimintoa ei suoritettu.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -997,9 +1007,8 @@
 @define('APPROVE_TRACKBACK', 'Hyväksy paluuviite');
 @define('TRACKBACK_APPROVED', 'Paluuviite #%s hyväksytty');
 @define('TRACKBACK_DELETED', 'Paluuviite #%s poistettu');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Ylin taso');
 @define('VIEW_COMMENT', 'Näytä kommentti');
 @define('VIEW_ENTRY', 'Näytä merkintä');
@@ -1051,7 +1060,6 @@
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Kysely %s ei palauttanut yhtään merkintää' . "\n");
@@ -1120,6 +1128,8 @@
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Näytetäänkö kirjoittajan merkintöjen määrä kirjoittajan vieressä?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'Kirjoitusten määrä näytetään suluissa kirjoittajan nimen perässä, jos valitset tämän.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Show only authors with at least X articles');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Kanavointi');

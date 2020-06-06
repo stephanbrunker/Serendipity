@@ -43,6 +43,7 @@ $i18n_filename_to   = array('_', 'a', 'A', 'a', 'A', 'b', 'B', 'c', 'C', 'c', 'C
 @define('DOWN', 'Dół');
 @define('PREVIOUS', 'Poprzedni');
 @define('NEXT', 'Następny');
+@define('STR_AND', 'and');
 @define('ENTRIES', 'wpisy');
 @define('CATEGORIES', 'Kategorie');
 @define('NAME', 'Imię');
@@ -460,6 +461,7 @@ $i18n_filename_to   = array('_', 'a', 'A', 'a', 'A', 'b', 'B', 'c', 'C', 'c', 'C
 @define('CREATE_NEW_CAT', 'Nowa kategoria');
 @define('ALREADY_SUBCATEGORY', '%s jest już podkategorią kategorii %s.');
 @define('NO_CATEGORIES', 'Brak kategorii');
+@define('CATEGORY_IMAGE_DESC', 'Image which is shown like an initial at every entry of this category. Recommended size 128x128 pixels, less if you use multiple categories for an entry.');
 
 /* ADMIN - MAINTENANCE.TPL */
 @define('CHECKSUMS_NOT_FOUND', 'Unable to compare checksums! (No checksums.inc.php in main directory)');
@@ -867,6 +869,10 @@ $i18n_filename_to   = array('_', 'a', 'A', 'a', 'A', 'b', 'B', 'c', 'C', 'c', 'C
 @define('USERCONF_PASSWORD_DESC', 'Hasło, którego chcesz użyć przy logowaniu do bloga');
 @define('USERCONF_CHECK_PASSWORD', 'Stare hasło');
 @define('USERCONF_CHECK_PASSWORD_DESC', 'Jeśli zmienisz hasło w polu powyżej, musisz w tym polu wpisać aktualne hasło');
+@define('USERCONF_DESCRIPTION', 'Introduction text');
+@define('USERCONF_DESCRIPTION_DESC', 'Public description of the user, leave empty to hide');
+@define('USERCONF_IMAGE', 'User Image');
+@define('USERCONF_IMAGE_DESC', 'Public picture of the user, leave empty to hide');
 @define('USERCONF_USERLEVEL', 'Poziom dostępu');
 @define('USERCONF_USERLEVEL_DESC', 'To ustawienie określa jaki poziom dostępu ma użytkownik do bloga.');
 @define('USERCONF_GROUPS', 'Przynależność do grupy');
@@ -976,6 +982,10 @@ $i18n_filename_to   = array('_', 'a', 'A', 'a', 'A', 'b', 'B', 'c', 'C', 'c', 'C
 @define('SUBSCRIBE_COMMENT_BLAHBLAH', 'You can also subscribe to new comments without writing one. Please enter your email address down below.');
 @define('SUBSCRIBE_TO_THIS_ENTRY', 'Wyślij mailem powiadomienie o odpowiedziach');
 
+/* AUTHOR.TPL */
+@define('FEED_OF_TITLE', 'RSS-Feed for %s');
+@define('SUBSCRIBE_TO_TITLE', 'Subscribe per mail to %s');
+
 /* FUNCTIONS_CONFIG */
 @define('ERROR_XSRF', 'Your browser did not sent a valid HTTP-Referrer string. This may have either been caused by a misconfigured browser/proxy or by a Cross Site Request Forgery (XSRF) aimed at you. The action you requested could not be completed.');
 @define('NAVLINK_AMOUNT', 'Enter number of links in the navbar (needs reload of the Manage Styles page)');
@@ -998,9 +1008,8 @@ $i18n_filename_to   = array('_', 'a', 'A', 'a', 'A', 'b', 'B', 'c', 'C', 'c', 'C
 @define('APPROVE_TRACKBACK', 'Zaaprobuj Ślad (Trackback)');
 @define('TRACKBACK_APPROVED', 'Ślad (Trackback) #%s został zaaprobowany');
 @define('TRACKBACK_DELETED', 'Ślad (Trackback) #%s został usunięty');
-@define('COMMENT_NOTOKENMATCH', 'Moderation link has expired or comment #%s has already been approved or deleted');
-@define('TRACKBACK_NOTOKENMATCH', 'Moderation link has expired or trackback #%s has already been approved or deleted');
-@define('BADTOKEN', 'Invalid Moderation Link');
+@define('COMMENT_DELETE_NOMATCH', 'Comment or trackback #%s has already been accepted or deleted');
+@define('BADTOKEN', 'Moderation link has expired or is invalid');
 @define('TOP_LEVEL', 'Wpis');
 @define('VIEW_COMMENT', 'Zobacz komentarz');
 @define('VIEW_ENTRY', 'Zobacz wpis');
@@ -1052,7 +1061,6 @@ $i18n_filename_to   = array('_', 'a', 'A', 'a', 'A', 'b', 'B', 'c', 'C', 'c', 'C
 
 /* ROUTING */
 @define('URL_NOT_FOUND', 'The requested page could not be found (404). This is the default page.');
-
 
 /* GENPAGE */
 @define('NO_ENTRIES_BLAHBLAH', 'Nie znaleziono wpisów zawierających zapytanie %s' . "\n");
@@ -1121,6 +1129,8 @@ $i18n_filename_to   = array('_', 'a', 'A', 'a', 'A', 'b', 'B', 'c', 'C', 'c', 'C
 @define('AUTHORS_SHOW_ARTICLE_COUNT', 'Informować o ilości wpisów dokonanych przez autora obok jego Imienia?');
 @define('AUTHORS_SHOW_ARTICLE_COUNT_DESC', 'jeśli ta opcja zostanie włączona, obok autora zostanie pokazana ilość poczynionych przez niego wpisów ujeta w nawiasy.');
 @define('PLUGIN_AUTHORS_MINCOUNT', 'Pokaż tylko autorów mających co najmniej X wpisów');
+@define('AUTHORS_SHOW_ALL', 'Link for "all Authors"');
+@define('AUTHORS_SHOW_ALL_DESC', 'Shows a link to the homepage named "all Authors"');
 
 /* PLUGIN SYNDICATION */
 @define('SYNDICATION', 'Subskrybcja');
