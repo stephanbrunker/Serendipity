@@ -1,3 +1,19 @@
+Version 2.4-alpha6
+------------------------------------------------------------------------
+
+   * added multilanguage mail support. As it was, mails to a commenter,
+     subscriber or the author were always sent in the current active
+     language. So if someone commented in english, the author got his 
+     mail also in english, even if his language is german. To fix this,
+     the strings needed for emails are now in separate files and are 
+     loaded as strings $serendipity_varlang['DE']['STRING']. Without
+     multilingual plugin enabled, only the active language is loaded,
+     otherwise this array contains all used languages. For the mailing,
+     an array of the mail in all neccessary languages has to be created,
+     this happens in a new eventHook mail_subscribers
+   * because so much of the multilingual support can only be done in the
+     core, moved the plugin into the core plugins, but inactive by default
+
 Version 2.4-alpha5 (subscription branch)
 ------------------------------------------------------------------------
 
