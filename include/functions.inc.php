@@ -467,7 +467,7 @@ function serendipity_fetchUsers($user = '', $group = null, $is_count = false) {
  * @param   string  Multipart html formatted message
  * @return  int     Return code of the PHP mail() function
  */
-function serendipity_sendMail($to, $subject, $message, $fromMail, $headers = NULL, $fromName = NULL, $multiparthtml = NULL) {
+function serendipity_sendMail($to, $subject, $message, $fromMail, $headers = NULL, $fromName = NULL, $charset = LANG_CHARSET, $multiparthtml = NULL) {
     global $serendipity;
 
     if (!is_null($headers) && !is_array($headers)) {
@@ -493,8 +493,8 @@ function serendipity_sendMail($to, $subject, $message, $fromMail, $headers = NUL
     // Prefix all mail with weblog title
     $subject = '['. $serendipity['blogTitle'] . '] '.  $subject;
 
-    // Append signature to every mail
-    $message .= "\n\n-- \n" . sprintf(SIGNATURE, $serendipity['blogTitle'], '<https://s9y.org>');
+    // Append signature to every mail -> because of multilingual and html mailing, this is switched to the individual functions
+    // $message .= "\n\n-- \n" . sprintf(SIGNATURE, $serendipity['blogTitle'], '<https://s9y.org>');
 
     $maildata = array(
         'to'       => &$to,
@@ -509,7 +509,7 @@ function serendipity_sendMail($to, $subject, $message, $fromMail, $headers = NUL
         'htmlmessage' => &$multiparthtml
     );
 
-    serendipity_plugin_api::hook_event('backend_sendmail', $maildata, LANG_CHARSET);
+    serendipity_plugin_api::hook_event('backend_sendmail', $maildata, $charset);
 
     // This routine can be overridden by a plugin.
     if ($maildata['legacy']) {
@@ -519,8 +519,8 @@ function serendipity_sendMail($to, $subject, $message, $fromMail, $headers = NUL
             // Usually this is according to spec, but for us it caused more trouble than
             // it prevented.
             // Regards to Mark Kronsbein for finding this issue!
-            $maildata['subject'] = str_replace(array("\n", "\r"), array('', ''), mb_encode_mimeheader($maildata['subject'], LANG_CHARSET));
-            $maildata['fromName'] = str_replace(array("\n", "\r"), array('', ''), mb_encode_mimeheader($maildata['fromName'], LANG_CHARSET));
+            $maildata['subject'] = str_replace(array("\n", "\r"), array('', ''), mb_encode_mimeheader($maildata['subject'], $charset));
+            $maildata['fromName'] = str_replace(array("\n", "\r"), array('', ''), mb_encode_mimeheader($maildata['fromName'], $charset));
         }
 
 
@@ -543,7 +543,7 @@ function serendipity_sendMail($to, $subject, $message, $fromMail, $headers = NUL
             $boundary = uniqid();
             $maildata['headers'][] = 'Content-Type: multipart/alternative;boundary=' . $boundary;
             
-            if (LANG_CHARSET == 'UTF-8') {
+            if ($charset == 'UTF-8') {
                 if (function_exists('imap_8bit') && !$serendipity['forceBase64']) {
                     $msg = imap_8bit($maildata['message']);
                     $htmlmsg = imap_8bit($maildata['htmlmessage']);
@@ -560,20 +560,20 @@ function serendipity_sendMail($to, $subject, $message, $fromMail, $headers = NUL
             }
             
             $maildata['message'] = $boundary . "\r\n";
-            $maildata['message'] .= 'Content-Type: text/plain; charset=' . LANG_CHARSET . "\r\n";
+            $maildata['message'] .= 'Content-Type: text/plain; charset=' . $charset . "\r\n";
             $maildata['message'] .= $encode;
             $maildata['message'] .= $msg;
             $maildata['message'] .=  "\r\n\r\n--" . $boundary . "\r\n";
-            $maildata['message'] .= 'Content-Type: text/html; charset=' . LANG_CHARSET . "\r\n";
+            $maildata['message'] .= 'Content-Type: text/html; charset=' . $charset . "\r\n";
             $maildata['message'] .= $encode;
             $maildata['message'] .= $htmlmsg;
             $maildata['message'] .= "\r\n\r\n--" . $boundary . "--";
 
         } else {
             // simple plain/html version
-        $maildata['headers'][] = 'Content-Type: text/plain; charset=' . LANG_CHARSET;
+        $maildata['headers'][] = 'Content-Type: text/plain; charset=' . $charset;
 
-        if (LANG_CHARSET == 'UTF-8') {
+        if ($charset == 'UTF-8') {
             if (function_exists('imap_8bit') && !$serendipity['forceBase64']) {
                 $maildata['headers'][] = 'Content-Transfer-Encoding: quoted-printable';
                 $maildata['message']   = str_replace("\r\n","\n",imap_8bit($maildata['message']));

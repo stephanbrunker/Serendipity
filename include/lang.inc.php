@@ -33,6 +33,9 @@ if (!defined('serendipity_LANG_LOADED') || serendipity_LANG_LOADED !== true) {
     // Try and include preferred language from the configurated setting
 
     if (@include(S9Y_INCLUDE_PATH . 'lang/' . $charset . 'serendipity_lang_'. $serendipity['lang'] .'.inc.php') ) {
+        // load the variable language strings
+        $serendipity_langvar = array();
+        include(S9Y_INCLUDE_PATH . 'lang/' . $charset . 'serendipity_langvar_'. $serendipity['lang'] .'.inc.php');
         // Only here can we truly say the language is loaded
         define('serendipity_LANG_LOADED', true);
         if (function_exists('serendipity_db_reconnect')) {

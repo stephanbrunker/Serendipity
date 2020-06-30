@@ -9,18 +9,18 @@
                 <tr>
                     <td bgcolor="#ffffff" style="padding: 5px 20px 10px 20px;" >
                     <h2>{$entrymail.title}</h2>
-                    <div style="font-size: 90%; margin-bottom:1em;">{$CONST.POSTED_BY} <a href="{$entrymail.link_author}">{$entrymail.author}</a> {$CONST.ON} <time datetime="{$entrymail.timestamp|@serendipity_html5time}">{$entrymail.timestamp|@formatTime:$template_option.date_format}</time></div>
+                    <div style="font-size: 90%; margin-bottom:1em;">{$langvar.POSTED_BY} <a href="{$entrymail.link_author}">{$entrymail.author}</a> {$langvar.ON} <time datetime="{$entrymail.timestamp|@serendipity_html5time}">{$entrymail.timestamp|@formatTime:$template_option.date_format}</time></div>
                     {if $subscribeChunk == 'med'}
                     <div class="clearfix content serendipity_entry_body" style="margin-bottom:1em;">
                     {$entrymail.body}
                     </div>
                     {if $entrymail.extended}
                     <div>
-                        <a class="read_more block_level" href="{$entrymail.link}">{$CONST.VIEW_EXTENDED_ENTRY|@sprintf:$entrymail.title}</a>
+                        <a class="read_more block_level" href="{$entrymail.link}">{$langvar.VIEW_EXTENDED_ENTRY|@sprintf:$entrymail.title}</a>
                     </div>
                     {/if}
                     {else}
-                    <p><a class="read_more block_level" href="{$entrymail.link}">{$CONST.VIEW_EXTENDED_ENTRY|@sprintf:$entrymail.title}</a></p>
+                    <p><a class="read_more block_level" href="{$entrymail.link}">{$langvar.VIEW_EXTENDED_ENTRY|@sprintf:$entrymail.title}</a></p>
                     {/if}
                     </td>
                 </tr>

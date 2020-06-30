@@ -721,6 +721,7 @@ function serendipity_confirmMail($cid, $hash) {
  */
 function serendipity_insertComment($id, $commentInfo, $type = 'NORMAL', $source = 'internal', $ca = array()) {
     global $serendipity;
+    global $serendipity_langvar;
 
     if (!empty($ca['status'])) {
         $commentInfo['status'] = $ca['status'];
@@ -743,12 +744,15 @@ function serendipity_insertComment($id, $commentInfo, $type = 'NORMAL', $source 
     $t             = serendipity_db_escape_string(isset($commentInfo['time']) ? $commentInfo['time'] : time());
     $referer       = substr((isset($_SESSION['HTTP_REFERER']) ? serendipity_db_escape_string($_SESSION['HTTP_REFERER']) : ''), 0, 200);
 
-    $query = "SELECT a.email, e.title, a.mail_comments, a.mail_trackbacks
+    $query = "SELECT a.email, c.value 'lang', e.title, a.mail_comments, a.mail_trackbacks
                 FROM {$serendipity['dbPrefix']}entries AS e
      LEFT OUTER JOIN {$serendipity['dbPrefix']}authors AS a
                   ON a.authorid = e.authorid
+             LEFT OUTER JOIN {$serendipity['dbPrefix']}config AS c
+                          ON a.authorid = c.authorid
              WHERE e.id  = '". (int)$id ."'
-               AND e.isdraft = 'false'";
+               AND e.isdraft = 'false'
+               AND a.name = 'lang'";
     if (!serendipity_db_bool($serendipity['showFutureEntries'])) {
         $query .= " AND e.timestamp <= " . serendipity_db_time();
     }
@@ -814,7 +818,7 @@ function serendipity_insertComment($id, $commentInfo, $type = 'NORMAL', $source 
         || ($type == 'NORMAL' && serendipity_db_bool($row['mail_comments']))
         || (($type == 'TRACKBACK' || $type == 'PINGBACK') && serendipity_db_bool($row['mail_trackbacks'])))) {
             if (! ($authorReply && $authorEmail == $row['email'])) {
-                serendipity_sendComment($cid, $row['email'], $name, $email, $url, $id, $row['title'], $comments, $type, serendipity_db_bool($ca['moderate_comments']), $referer);
+                serendipity_sendComment($cid, $row['email'], $name, $email, $url, $id, $row['title'], $comments, $type, serendipity_db_bool($ca['moderate_comments']), $referer, $row['lang']);
             }
     }
 
@@ -832,27 +836,42 @@ function serendipity_insertComment($id, $commentInfo, $type = 'NORMAL', $source 
         fwrite($fp, '[' . date('d.m.Y H:i') . '] No need to approve...' . "\n");
     }
 
+    // shorten variable name for strings
+    $str = $serendipity_langvar[$serendipity['lang']];
     
     // simple filter check for email before all email based processes
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // send address confirmation mail to the commenter
         if ($status == 'confirm') {
-            $subject = sprintf(NEW_COMMENT_TO_SUBSCRIBED_ENTRY, $row['title']);
-            $message = sprintf(CONFIRMATION_MAIL_ALWAYS,
+            $subject = sprintf(
+                    $str['NEW_COMMENT_TO_SUBSCRIBED_ENTRY'], 
+                    $row['title']);
+            $message = sprintf(
+                    $str['CONFIRMATION_MAIL_ALWAYS'],
                                 $name,
                                 $row['title'],
                                 $commentsFixed,
                                 $serendipity['baseURL'] . 'comment.php?c=' . $cid . '&hash=' . $dbhash);
-
+            // append signature
+            $message .= "\n\n-- \n" . sprintf(
+                                        $str['SIGNATURE'], 
+                                        $serendipity['blogTitle'], '<https://s9y.org>');
             serendipity_sendMail($email, $subject, $message, $serendipity['blogMail']);
+
         } elseif ($status == 'confirm1') {
-            $subject = sprintf(NEW_COMMENT_TO_SUBSCRIBED_ENTRY, $row['title']);
-            $message = sprintf(CONFIRMATION_MAIL_ONCE,
+            $subject = sprintf(
+                    $str['NEW_COMMENT_TO_SUBSCRIBED_ENTRY'], 
+                    $row['title']);
+            $message = sprintf(
+                    $str['CONFIRMATION_MAIL_ONCE'],
                                 $name,
                                 $row['title'],
                                 $commentsFixed,
                                 $serendipity['baseURL'] . 'comment.php?c=' . $cid . '&hash=' . $dbhash);
-
+            // append signature
+            $message .= "\n\n-- \n" . sprintf(
+                                        $str['SIGNATURE'], 
+                                        $serendipity['blogTitle'], '<https://s9y.org>');
             serendipity_sendMail($email, $subject, $message, $serendipity['blogMail']);
         }
 
@@ -934,9 +953,9 @@ function serendipity_saveComment($id, $commentInfo, $type = 'NORMAL', $source = 
  */
 function serendipity_mailCommentSubscribers($entry_id, $poster, $posterMail, $title, $fromEmail = 'none@example.com', $cid = null, $body = null) {
     global $serendipity;
+    global $serendipity_langvar;
 
     $entryURI = serendipity_archiveURL($entry_id, $title, 'baseURL') . ($cid > 0 ? '#c' . $cid : '');
-    $subject =  sprintf(NEW_COMMENT_TO_SUBSCRIBED_ENTRY, $title);
     $entry_id = (int)$entry_id;
 
     $pgsql_insert = '';
@@ -948,7 +967,7 @@ function serendipity_mailCommentSubscribers($entry_id, $poster, $posterMail, $ti
         $mysql_insert = 'GROUP BY s.email';
     }
 
-    $sql = "SELECT $pgsql_insert c.name, s.email, c.type
+    $sql = "SELECT $pgsql_insert c.name, s.email, c.type, s.lang
             FROM {$serendipity['dbPrefix']}subscriptions s
             LEFT JOIN {$serendipity['dbPrefix']}comments c ON (s.target_id = c.entry_id AND s.email = c.email)
             WHERE s.type = 'entry'
@@ -963,9 +982,13 @@ function serendipity_mailCommentSubscribers($entry_id, $poster, $posterMail, $ti
 
     foreach ($subscribers as $subscriber) {
         if ($subscriber['type'] == 'TRACKBACK') {
+            $subject =  sprintf(
+                      $serendipity_langvar[$serendipity['lang']]['NEW_COMMENT_TO_SUBSCRIBED_ENTRY'], 
+                      $title);
+            $str = $serendipity_langvar[$serendipity['lang']]['SUBSCRIPTION_TRACKBACK_MAIL'];
+            $sig = $serendipity_langvar[$serendipity['lang']]['SIGNATURE'];
             $text = sprintf(
-                      SUBSCRIPTION_TRACKBACK_MAIL,
-
+                      $str,
                       $subscriber['name'],
                       $serendipity['blogTitle'],
                       $title,
@@ -974,9 +997,21 @@ function serendipity_mailCommentSubscribers($entry_id, $poster, $posterMail, $ti
                       serendipity_rewriteURL(PATH_UNSUBSCRIBE . '/' . urlencode($subscriber['email']) . '/' . (int)$entry_id , 'baseURL')
             );
         } else {
+            if (class_exists('serendipity_event_multilingual')) {
+                $str = $serendipity_langvar[$subscriber['lang']]['SUBSCRIPTION_MAIL'];
+                $sig = $serendipity_langvar[$subscriber['lang']]['SIGNATURE'];
+                $subject =  sprintf(
+                          $serendipity_langvar[$subscriber['lang']]['NEW_COMMENT_TO_SUBSCRIBED_ENTRY'], 
+                          $title);
+            } else {
+                $str = $serendipity_langvar[$serendipity['lang']]['SUBSCRIPTION_MAIL'];
+                $sig = $serendipity_langvar[$serendipity['lang']]['SIGNATURE'];
+                $subject = sprintf(
+                          $serendipity_langvar[$serendipity['lang']]['NEW_COMMENT_TO_SUBSCRIBED_ENTRY'], 
+                          $title);
+            }
             $text = sprintf(
-                      SUBSCRIPTION_MAIL,
-
+                      $str,
                       $subscriber['name'],
                       $serendipity['blogTitle'],
                       $title,
@@ -985,7 +1020,8 @@ function serendipity_mailCommentSubscribers($entry_id, $poster, $posterMail, $ti
                       serendipity_rewriteURL(PATH_UNSUBSCRIBE . '/' . urlencode($subscriber['email']) . '/' . (int)$entry_id , 'baseURL')
             );
         }
-
+        // append signature
+        $text .= "\n\n-- \n" . sprintf($sig, $serendipity['blogTitle'], '<https://s9y.org>');
         serendipity_sendMail($subscriber['email'], $subject, $text, $fromEmail);
     }
 }
@@ -1005,12 +1041,20 @@ function serendipity_mailCommentSubscribers($entry_id, $poster, $posterMail, $ti
  * @param  boolean  Toggle Whether comments to this entry need approval
  * @return boolean  Return success of sending the mails
  */
-function serendipity_sendComment($comment_id, $to, $fromName, $fromEmail, $fromUrl, $id, $title, $comment, $type = 'NORMAL', $moderate_comment = false, $referer = '') {
+function serendipity_sendComment($comment_id, $to, $fromName, $fromEmail, $fromUrl, $id, $title, $comment, $type = 'NORMAL', $moderate_comment = false, $referer = '', $lang = '') {
     global $serendipity;
+    global $serendipity_langvar;
 
     if (empty($fromName)) {
         $fromName = ANONYMOUS;
     }
+
+    if (empty($lang)) {
+        $lang = $serendipity['lang'];
+    }
+
+    // shorten variable name for strings
+    $str = $serendipity_langvar[$lang];
 
     $entryURI   = serendipity_archiveURL($id, $title, 'baseURL');
     $path       = ($type == 'TRACKBACK' || $type == 'PINGBACK') ? 'trackback' : 'comment';
@@ -1043,49 +1087,51 @@ function serendipity_sendComment($comment_id, $to, $fromName, $fromEmail, $fromU
     if ($type == 'TRACKBACK' || $type == 'PINGBACK') {
 
         /******************* TRACKBACKS *******************/
-        $subject =  ($moderate_comment ? '[' . REQUIRES_REVIEW . '] ' : '') . NEW_TRACKBACK_TO . ' ' . $title;
-        $text = sprintf(A_NEW_TRACKBACK_BLAHBLAH, $title)
+        $subject =  ($moderate_comment ? '[' . $str['REQUIRES_REVIEW'] . '] ' : '') . $str['NEW_TRACKBACK_TO'] . ' ' . $title;
+        $text = sprintf($str['A_NEW_TRACKBACK_BLAHBLAH'], $title)
               . "\n"
-              . "\n" . REQUIRES_REVIEW          . ': ' . (($moderate_comment) ? YES : NO) . (isset($serendipity['moderate_reason']) ? ' (' . $serendipity['moderate_reason'] . ')' : '')
-              . "\n" . LINK_TO_ENTRY            . ': ' . $entryURI
-              . "\n" . WEBLOG                   . ': ' . stripslashes($fromName)
-              . "\n" . LINK_TO_REMOTE_ENTRY     . ': ' . $fromUrl
+              . "\n" . $str['REQUIRES_REVIEW']          . ': ' . (($moderate_comment) ? $str['YES'] : $str['NO']) . (isset($serendipity['moderate_reason']) ? ' (' . $serendipity['moderate_reason'] . ')' : '')
+              . "\n" . $str['LINK_TO_ENTRY']            . ': ' . $entryURI
+              . "\n" . $str['WEBLOG']                   . ': ' . stripslashes($fromName)
+              . "\n" . $str['LINK_TO_REMOTE_ENTRY']     . ': ' . $fromUrl
               . "\n"
-              . "\n" . EXCERPT . ':'
+              . "\n" . $str['EXCERPT'] . ':'
               . "\n" . strip_tags($comment)
               . "\n"
               . "\n" . '----'
-              . "\n" . YOU_HAVE_THESE_OPTIONS
-              . (($moderate_comment) ? "\n" . str_repeat(' ', 2) . THIS_TRACKBACK_NEEDS_REVIEW : '')
-              . "\n" . str_repeat(' ', 3) . str_pad(VIEW_ENTRY,  15) . ' -- '. $entryURI
-              . "\n" . str_repeat(' ', 3) . str_pad(DELETE_TRACKBACK,  15) . ' -- '. $deleteURI
-              . (($moderate_comment) ? "\n" . str_repeat(' ', 3) . str_pad(APPROVE_TRACKBACK, 15) . ' -- '. $approveURI : '')
-              . $action_more;
+              . "\n" . $str['YOU_HAVE_THESE_OPTIONS']
+              . (($moderate_comment) ? "\n" . str_repeat(' ', 2) . $str['THIS_TRACKBACK_NEEDS_REVIEW'] : '')
+              . "\n" . str_repeat(' ', 3) . str_pad($str['VIEW_ENTRY'],  15) . ' -- '. $entryURI
+              . "\n" . str_repeat(' ', 3) . str_pad($str['DELETE_TRACKBACK'],  15) . ' -- '. $deleteURI
+              . (($moderate_comment) ? "\n" . str_repeat(' ', 3) . str_pad($str['APPROVE_TRACKBACK'], 15) . ' -- '. $approveURI : '')
+              . $action_more
+              . "\n\n-- \n" . sprintf($str['SIGNATURE'], $serendipity['blogTitle'], '<https://s9y.org>');
 
     } else {
 
         /******************* COMMENTS *********************/
-        $subject = ($moderate_comment ? '[' . REQUIRES_REVIEW . '] ' : '') . NEW_COMMENT_TO . ' ' . $title;
-        $text = sprintf(A_NEW_COMMENT_BLAHBLAH, $serendipity['blogTitle'], $title)
-              . "\n" . LINK_TO_ENTRY . ': ' . $entryURI
+        $subject = ($moderate_comment ? '[' . $str['REQUIRES_REVIEW'] . '] ' : '') . $str['NEW_COMMENT_TO'] . ' ' . $title;
+        $text = sprintf($str['A_NEW_COMMENT_BLAHBLAH'], $serendipity['blogTitle'], $title)
+              . "\n" . $str['LINK_TO_ENTRY'] . ': ' . $entryURI
               . "\n"
-              . "\n" . REQUIRES_REVIEW         . ': ' . (($moderate_comment) ? YES : NO) . (isset($serendipity['moderate_reason']) ? ' (' . $serendipity['moderate_reason'] . ')' : '')
-              . "\n" . IP_ADDRESS . ': ' . $_SERVER['REMOTE_ADDR']
-              . "\n" . NAME       . ': ' . $fromName
-              . "\n" . EMAIL      . ': ' . $fromEmail
-              . "\n" . HOMEPAGE   . ': ' . $fromUrl
-              . "\n" . REFERER    . ': ' . $referer
+              . "\n" . $str['REQUIRES_REVIEW']         . ': ' . (($moderate_comment) ? $str['YES'] : $str['NO']) . (isset($serendipity['moderate_reason']) ? ' (' . $serendipity['moderate_reason'] . ')' : '')
+              . "\n" . $str['IP_ADDRESS'] . ': ' . $_SERVER['REMOTE_ADDR']
+              . "\n" . $str['NAME']       . ': ' . $fromName
+              . "\n" . $str['EMAIL']      . ': ' . $fromEmail
+              . "\n" . $str['HOMEPAGE']   . ': ' . $fromUrl
+              . "\n" . $str['REFERER']    . ': ' . $referer
               . "\n"
-              . "\n" . COMMENTS                . ': '
+              . "\n" . $str['COMMENTS']                . ': '
               . "\n" . strip_tags($comment)
               . "\n"
               . "\n" . '----'
-              . "\n" . YOU_HAVE_THESE_OPTIONS
-              . (($moderate_comment) ? "\n" . str_repeat(' ', 2) . THIS_COMMENT_NEEDS_REVIEW : '')
-              . "\n" . str_repeat(' ', 3) . str_pad(VIEW_COMMENT,  15) . ' -- '. $entryURI .'#c'. $comment_id
-              . "\n" . str_repeat(' ', 3) . str_pad(DELETE_COMMENT,  15) . ' -- '. $deleteURI
-              . (($moderate_comment) ? "\n" . str_repeat(' ', 3) . str_pad(APPROVE_COMMENT, 15) . ' -- '. $approveURI : '')
-              . $action_more;
+              . "\n" . $str['YOU_HAVE_THESE_OPTIONS']
+              . (($moderate_comment) ? "\n" . str_repeat(' ', 2) . $str['THIS_COMMENT_NEEDS_REVIEW'] : '')
+              . "\n" . str_repeat(' ', 3) . str_pad($str['VIEW_COMMENT'],  15) . ' -- '. $entryURI .'#c'. $comment_id
+              . "\n" . str_repeat(' ', 3) . str_pad($str['DELETE_COMMENT'],  15) . ' -- '. $deleteURI
+              . (($moderate_comment) ? "\n" . str_repeat(' ', 3) . str_pad($str['APPROVE_COMMENT'], 15) . ' -- '. $approveURI : '')
+              . $action_more
+              . "\n\n-- \n" . sprintf($str['SIGNATURE'], $serendipity['blogTitle'], '<https://s9y.org>');
     }
 
     return serendipity_sendMail($to, $subject, $text, $fromEmail, null, $fromName);

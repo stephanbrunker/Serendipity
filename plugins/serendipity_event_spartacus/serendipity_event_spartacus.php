@@ -27,7 +27,7 @@ class serendipity_event_spartacus extends serendipity_event
         $propbag->add('description',   PLUGIN_EVENT_SPARTACUS_DESC);
         $propbag->add('stackable',     false);
         $propbag->add('author',        'Garvin Hicking');
-        $propbag->add('version',       '2.39');
+        $propbag->add('version',       '2.39.1');
         $propbag->add('requirements',  array(
             'serendipity' => '1.6',
         ));
@@ -1184,6 +1184,7 @@ class serendipity_event_spartacus extends serendipity_event
     function event_hook($event, &$bag, &$eventData, $addData = null)
     {
         global $serendipity;
+        global $serendipity_langvar;
 
         $hooks = &$bag->get('event_hooks');
 
@@ -1249,6 +1250,8 @@ class serendipity_event_spartacus extends serendipity_event
                         }
 
                         if (!empty($mailtext)) {
+                            // append signature
+                            $mailtext .= "\n\n-- \n" . sprintf($serendipity_langvar[$serendipity['lang']]['SIGNATURE'], $serendipity['blogTitle'], '<https://s9y.org>');
                             serendipity_sendMail($serendipity['blogMail'], 'Spartacus update report ' . $serendipity['baseURL'], $mailtext, $serendipity['blogMail']);
                             echo nl2br($mailtext);
                         }

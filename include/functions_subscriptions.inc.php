@@ -223,6 +223,7 @@ function serendipity_printUnsubscribepage() {
  */
 function serendipity_sendConfirmationMail($email, $type = 'blog', $target_id = NULL, $name = NULL)  {
     global $serendipity;
+    global $serendipity_langvar;
 
     // Delete any subscription attempts that smell like 3-week-old, dead fish.
     serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}subscriptions
@@ -278,7 +279,7 @@ function serendipity_sendConfirmationMail($email, $type = 'blog', $target_id = N
          // register subscription
         serendipity_db_query("INSERT INTO {$serendipity['dbPrefix']}subscriptions
                                             (email, type, target_id, subscribed, token, timestamp, lang)
-                                        VALUES ('{$email}', '{$type}', {$target_id}, 'false', '{$dbhash}', " . time() . ", '{$serendipity['default_lang']}')");
+                                        VALUES ('{$email}', '{$type}', {$target_id}, 'false', '{$dbhash}', " . time() . ", '{$serendipity['lang']}')");
         $newid = serendipity_db_insert_id();
      } else {
         if ($dupe_check['subscribed'] == 'false') {
@@ -291,6 +292,9 @@ function serendipity_sendConfirmationMail($email, $type = 'blog', $target_id = N
             return 'dupe';
         }
     }
+
+    // shorten variable name for strings
+    $str = $serendipity_langvar[$serendipity['lang']];
 
     // send confirmation email
     switch ($type) {
@@ -363,6 +367,7 @@ function serendipity_sendConfirmationMail($email, $type = 'blog', $target_id = N
             break;
     }
 
+    $message .= "\n\n-- \n" . sprintf($str['SIGNATURE'], $serendipity['blogTitle'], '<https://s9y.org>');
     serendipity_sendMail($email, $subject, $message, $serendipity['blogMail']);
     return $newid;
 }
@@ -426,7 +431,7 @@ function serendipity_subscription($email, $type = 'blog', $target_id = NULL) {
          // register subscription
         serendipity_db_query("INSERT INTO {$serendipity['dbPrefix']}subscriptions
                                             (email, type, target_id, subscribed, token, timestamp, lang)
-                                        VALUES ('{$email}', '{$type}', {$target_id}, 'true', '{$dbhash}', " . time() . ", '{$serendipity['default_lang']}')");
+                                        VALUES ('{$email}', '{$type}', {$target_id}, 'true', '{$dbhash}', " . time() . ", '{$serendipity['lang']}')");
         return serendipity_db_insert_id();
     } else {
         // already subscribed
@@ -434,42 +439,28 @@ function serendipity_subscription($email, $type = 'blog', $target_id = NULL) {
     }
 }
 
-/**
- * Send Mail to all subscribers which have subscribed
- * to the blog or the author or category of the new entry
- *
- * @access public
- * @param entry array from serendpity_updertentry
+/* Generate content of subscription mail
+ * input $entry from serendipity_upDertEntry()
+ * with extra authorData
  */
-function serendipity_mailSubscribers($entry) {
+function serendipity_generateSubscriptionMail($entry, $lang = '') {
     global $serendipity;
+    global $serendipity_langvar;
 
-    if (!$serendipity['allowSubscriptions']) {
-        return false;
+    if (empty($lang)) {
+        $lang = $serendipity['default_lang'];
     }
 
-    // Author data
-    $res = serendipity_db_query("SELECT realname FROM {$serendipity['dbPrefix']}authors
-                                                 WHERE authorid = {$entry['authorid']}", true);
+    // shorten variable name for strings
+    $str = $serendipity_langvar[$lang];
 
-    if (is_array($res)) {
-        $entry['author'] = $res['realname'];
-
-        $authorData = array(
-                        'authorid' => $entry['authorid'],
-                        'username' => $res['username'],
-                        'email'    => $res['email'],
-                        'realname' => $entry['author']
-        );
-    }
-
-    $entry['signature'] = str_replace("\n", '<br>', sprintf(SIGNATURE, $serendipity['blogTitle'], '<a href="https://s9y.org">s9y.org</a>'));
-    $entry['intro'] = sprintf(SUBSCRIPTION_MAIL_INTRO, "<a href='{$serendipity['baseURL']}'>{$serendipity['blogTitle']}</a>");
-    $entry['outro'] = sprintf(SUBSCRIPTION_MAIL_OUTRO, "<a href='{$serendipity['baseURL']}'>{$serendipity['blogTitle']}</a>");
-    $entry['link_author'] = serendipity_authorURL($authorData, 'baseURL');
+    $mail = array();
+    $entry['signature'] = str_replace("\n", '<br>', sprintf($str['SIGNATURE'], $serendipity['blogTitle'], "<a href='https://s9y.org'>s9y.org</a>"));
+    $entry['intro'] = sprintf($str['SUBSCRIPTION_MAIL_INTRO'], "<a href='{$serendipity['baseURL']}'>{$serendipity['blogTitle']}</a>");
+    $entry['outro'] = sprintf($str['SUBSCRIPTION_MAIL_OUTRO'], "<a href='{$serendipity['baseURL']}'>{$serendipity['blogTitle']}</a>");
     $entry['link'] = serendipity_archiveURL($entry['id'], $entry['title'], 'baseURL', true, array('timestamp' => $entry['timestamp']));
-
-    $subject = '[' . SUBSCRIPTION_NEW_ARTICLE . '] ' . strip_tags($entry['title']);
+    $entry['link_author'] = serendipity_authorURL($entry['authorData'], 'baseURL'); 
+    $mail['subject'] = '[' . $str['SUBSCRIPTION_NEW_ARTICLE'] . '] ' . strip_tags($entry['title']);
 
     // generate content
     // plain text version
@@ -482,21 +473,24 @@ function serendipity_mailSubscribers($entry) {
 
     $html2text->setBaseUrl(trim($serendipity['baseURL'],'/'));
 
-    $bodytxt = sprintf(SUBSCRIPTION_MAIL_INTRO, '"'. $serendipity['blogTitle'] . '" <' . $serendipity['baseURL'] . '> ') . "\r\n\r\n"
+    $mail['bodytxt'] = sprintf($str['SUBSCRIPTION_MAIL_INTRO'], '"'. $serendipity['blogTitle'] . '" <' . $serendipity['baseURL'] . '> ') . "\r\n\r\n"
             . strtoupper($entry['title']) . "\r\n" . "====\r\n\r\n"
-            . POSTED_BY . ' ' . $entry['author'] . ' ' . ON . ' ' . serendipity_strftime(DATE_FORMAT_SHORT, $entry['timestamp']) . "\r\n\r\n";
+            . $str['POSTED_BY'] . ' ' . $entry['author'] . ' ' . $str['ON'] . ' ' . serendipity_strftime($str['DATE_FORMAT_SHORT'], $entry['timestamp']) . "\r\n\r\n";
 
-            if ($serendipity['subscribeChunk'] == 'med') {
-                $bodytxt .= $html2text->getText() . "\r\n\r\n";
-            }
+    if ($serendipity['subscribeChunk'] == 'med') {
+        $mail['bodytxt'] .= $html2text->getText() . "\r\n\r\n";
+    }
 
-    $bodytxt .= sprintf(VIEW_EXTENDED_ENTRY, $entry['title']) . ': '
+    $mail['bodytxt'] .= sprintf($str['VIEW_EXTENDED_ENTRY'], $entry['title']) . ': '
             . serendipity_archiveURL($entry['id'], $entry['title'], 'baseURL', true, array('timestamp' => $entry['timestamp'])) . "\r\n\r\n"
-            . sprintf(SUBSCRIPTION_MAIL_OUTRO, '"' . $serendipity['blogTitle'] . '" <' . $serendipity['baseURL'] . '> ');
+            . sprintf($str['SUBSCRIPTION_MAIL_OUTRO'], '"' . $serendipity['blogTitle'] . '" <' . $serendipity['baseURL'] . '> ')
+            . '%unsubscribe%'
+            . "\n\n-- \n" . sprintf($str['SIGNATURE'], $serendipity['blogTitle'], '<https://s9y.org>');
 
     // html version: send entry body and title to smarty template
     if ($serendipity['sendSubscriptionHtml']) {
         $serendipity['smarty']->assign('entrymail',$entry);
+        $serendipity['smarty']->assign('langvar', $str);
         $serendipity['smarty']->assign('subscribeChunk', $serendipity['subscribeChunk']);
         $smartyOutput = $serendipity['smarty']->fetch('file:'. serendipity_getTemplateFile('email.tpl', 'serendipityPath', true), null, null, null, (false && $serendipity['smarty_raw_mode']));
 
@@ -519,9 +513,45 @@ function serendipity_mailSubscribers($entry) {
 
         // get html head part
         $htmlhead = file_get_contents(serendipity_getTemplateFile('emailhead.txt', 'serendipityPath'));
-        $htmlhead = str_replace('{$CONST.LANG_CHARSET}', LANG_CHARSET, $htmlhead);
+        $htmlhead = str_replace('{$CONST.LANG_CHARSET}', $str['LANG_CHARSET'], $htmlhead);
         $htmlhead = str_replace('{$title}', htmlspecialchars($entry['title']), $htmlhead);
+        $mail['smartyOutput'] = $smartyOutput;
     }
+
+    return $mail;
+}
+
+/**
+ * Send Mail to all subscribers which have subscribed
+ * to the blog or the author or category of the new entry
+ *
+ * @access public
+ * @param entry array from serendpity_updertentry
+ */
+function serendipity_mailSubscribers($entry) {
+    global $serendipity;
+    global $serendipity_langvar;
+
+    if (!$serendipity['allowSubscriptions']) {
+        return false;
+    }
+
+    // Author data
+    $res = serendipity_db_query("SELECT realname FROM {$serendipity['dbPrefix']}authors
+                                                 WHERE authorid = {$entry['authorid']}", true);
+
+    if (is_array($res)) {
+        $entry['author'] = $res['realname'];
+
+        $entry['authorData'] = array(
+                        'authorid' => $entry['authorid'],
+                        'username' => $res['username'],
+                        'email'    => $res['email'],
+                        'realname' => $entry['author']
+        );
+    }
+
+    // fetch array of subscribers
 
     // $entry['authorid']
     // $entry['categories']['categoryid']
@@ -552,22 +582,45 @@ function serendipity_mailSubscribers($entry) {
     }
     $cond['where'] .= ')';
 
-    $sql = "SELECT {$cond['distinct']} email, token FROM {$serendipity['dbPrefix']}subscriptions WHERE {$cond['where']} {$cond['group']}";
-
-    // fetch array of subscribers
+    $sql = "SELECT {$cond['distinct']} email, token, lang FROM {$serendipity['dbPrefix']}subscriptions WHERE {$cond['where']} {$cond['group']}";
     $subscribers = serendipity_db_query($sql, false, 'assoc');
+
+    // get mail content
+    $mail = array();
+    $mail[$serendipity['default_lang']] = serendipity_generateSubscriptionMail($entry);
+    serendipity_plugin_api::hook_event('mail_subscribers', $mail, $entry);
 
     if (is_array($subscribers)) {
         echo '<div>&#8226; ' . sprintf(MAILTO_SUBSCRIBERS, count($subscribers)) . '</div>';
         foreach ($subscribers as $sub) {
             $email = $sub['email'];
+            if (class_exists('serendipity_event_multilingual')) {
+                $lang = $sub['lang'];
+            } else {
+                $lang = $serendipity['default_lang'];
+            }
             $unsubscribelink = serendipity_rewriteURL(PATH_UNSUBSCRIBE . '/' . $sub['token'], 'baseURL');
 
             if ($serendipity['sendSubscriptionHtml']) {
-                $smartyOutput = str_replace('%unsubscribe%', "<a href='{$unsubscribelink}'>{$unsubscribelink}</a>", $smartyOutput);
-                serendipity_sendMail($email, $subject, $bodytxt . $unsubscribelink, $serendipity['blogMail'], null, null, $htmlhead . $smartyOutput);
+                $htmlbody = str_replace('%unsubscribe%', "<a href='{$unsubscribelink}'>{$unsubscribelink}</a>", $mail[$lang]['smartyOutput']);
+                serendipity_sendMail(   $email, 
+                                        $mail[$lang]['subject'], 
+                                        $htmlbody,
+                                        $serendipity['blogMail'], 
+                                        null, 
+                                        null,
+                                        $serendipity_langvar[$lang]['CHARSET'],
+                                        $htmlhead . $htmlbody);
             } else {
-                serendipity_sendMail($email, $subject, $bodytxt . $unsubscribelink, $serendipity['blogMail']);
+                $txtbody = str_replace('%unsubscribe%', $unsubscribelink, $mail[$lang]['bodytxt']);
+                serendipity_sendMail(   $email, 
+                                        $mail[$lang]['subject'], 
+                                        $txtbody,
+                                        $serendipity['blogMail'],
+                                        null,
+                                        null,
+                                        $serendipity_langvar[$lang]['CHARSET']
+                                        );
             }
         }
         echo '<div>&#8226; ' . MAILTO_SUBSCRIBERS_SUCCESS . '</div>';

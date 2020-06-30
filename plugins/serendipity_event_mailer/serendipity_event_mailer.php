@@ -19,7 +19,7 @@ class serendipity_event_mailer extends serendipity_event
         $propbag->add('description',   PLUGIN_EVENT_MAILER_DESC);
         $propbag->add('stackable',     false);
         $propbag->add('author',        'Sebastian Nohn, Kristian Koehntopp, Garvin Hicking');
-        $propbag->add('version',       '1.60');
+        $propbag->add('version',       '1.61');
         $propbag->add('requirements',  array(
             'serendipity' => '1.6',
             'smarty'      => '2.6.7',
@@ -150,6 +150,7 @@ class serendipity_event_mailer extends serendipity_event
     function sendMail($eventData)
     {
         global $serendipity;
+        global $serendipity_langvar;
 
         $mails = explode(' ', str_replace(',', '', $this->get_config('mailto')));
         $to = array();
@@ -242,6 +243,9 @@ class serendipity_event_mailer extends serendipity_event
         if (serendipity_db_bool($this->get_config('includelink', 'false'))) {
             $mail['body'] = serendipity_archiveURL($eventData['id'], $eventData['title'], 'baseURL', true, array('timestamp' => $eventData['timestamp'])) . "\n\n" . $mail['body'];
         }
+        
+        // append signature
+        $mail['body'] .= "\n\n-- \n" . sprintf($serendipity_langvar[$serendipity['lang']]['SIGNATURE'], $serendipity['blogTitle'], '<https://s9y.org>');
 
         foreach($to AS $mailto) {
             if (!empty($mailto)) {
