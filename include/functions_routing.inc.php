@@ -321,7 +321,7 @@ function serveSubscribe($type, $id = NULL) {
             if (!isset($serendipity['allowSubscriptionsOptIn']) || $serendipity['allowSubscriptionsOptIn']) {
                 // with option "double-opt-in" show normal index.tpl with message of email sent to confirm
                 $res = serendipity_sendConfirmationMail($email, $type, $id);
-                if ($res && $res != 'dupe' && $res != 'block') {
+                if ($res && $res != 'dupe' && $res != 'block' && $res != 'open_optin') {
                     // success, mail sent
                     $serendipity['smarty_custom_vars']['content_message'] = 
                         sprintf(NOTIFICATION_OPTINMAIL_SENT, $email);
@@ -364,6 +364,9 @@ function serveSubscribe($type, $id = NULL) {
             } else if ($res == 'block') {
                 $serendipity['smarty_custom_vars']['content_message'] =
                     $serendipity['messagestack']['subscribe'];
+            } else if ($res == 'open_optin') {
+                $serendipity['smarty_custom_vars']['content_message'] = 
+                    sprintf(NOTIFICATION_SUBSCRIBE_OPTINSPAM, $email);
             }
         } else {
             // fail - check mail

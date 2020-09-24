@@ -250,6 +250,14 @@ function serendipity_sendConfirmationMail($email, $type = 'blog', $target_id = N
         }
     }
 
+    // check if there is already an open optin for that email address
+    $optin_check = serendipity_db_query("SELECT id FROM {$serendipity['dbPrefix']}subscriptions
+                                             WHERE email = '{$email}' AND subscribed = 'false'", true);
+    
+    if (is_array($optin_check)) {
+        return 'open_optin';
+    }
+
     // check if subscription already exists
     if ($type == 'entry' || $type == 'author' || $type == 'category') {
         if ($target_id == 'NULL') {
@@ -265,6 +273,7 @@ function serendipity_sendConfirmationMail($email, $type = 'blog', $target_id = N
 
     $dupe_check = serendipity_db_query("SELECT id, subscribed FROM {$serendipity['dbPrefix']}subscriptions
                                              WHERE email = '{$email}' AND type = '{$type}' {$sql_where}", true);
+
     if (!is_array($dupe_check)) {
          // register subscription
         serendipity_db_query("INSERT INTO {$serendipity['dbPrefix']}subscriptions

@@ -1084,6 +1084,7 @@
 @define('NOTIFICATION_OPTINMAIL_SENT', 'Die Anforderung für ein Blog-Abonnement wurde empfangen. Eine email wird an %s gesandt um das Abonnement zu bestätigen ("Double Opt In").');
 @define('NOTIFICATION_SUBSCRIBE_CONFIRM', 'Das Abonnement für "%s" ist bestätigt. Eine Zusammenfassung eines neuen Artikels wird an %s gesandt. Sie können das Abonnement jederzeit mit dem in jeder Mail befindlichen Link abbestellen.');
 @define('NOTIFICATION_SUBSCRIBE_DUPE', 'Das Abonnement ist fehlgeschlagen weil es bereits ein aktives Abonnement unter dieser Adresse für "%s" gibt.');
+@define('NOTIFICATION_SUBSCRIBE_OPTINSPAM', 'Das Abonnement wurde nicht angenommen. Bitte bestätigen Sie zuerst das vorherige Abonnement mit dem per Mail gesendeten Link.');
 @define('NOTIFICATION_SUBSCRIBE_CONFIRM_FAIL', 'Das Abonnement ist fehlgeschlagen. Bitte prüfen Sie die eingegebene e-mail-Adresse.');
 @define('BLOG_SUBSCRIPTION_TITLE', 'Email-Abonnement neuer Artikel');
 @define('BLOG_SUBSCRIPTION_BLAHBLAH', 'Um über neue Artikel informiert zu werden, bitte hier die email-Adresse eingeben.');
