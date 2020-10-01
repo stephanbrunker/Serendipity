@@ -107,9 +107,11 @@
 
         <a class="block_level" href="serendipity_admin.php?serendipity[adminModule]=comments">{$CONST.BACK}</a>
     {else}
-        <form id="formMultiDelete" action="" method="POST" name="formMultiDelete">
+        <form id="formMultiDelete" action="?" method="POST" name="formMultiDelete">
             {$formtoken}
-            <input name="serendipity[formAction]" type="hidden" value="multiDelete">
+            <input name="serendipity[action]" type="hidden" value="admin">
+            <input name="serendipity[adminAction]" type="hidden" value="multiDelete">
+            <input name="serendipity[adminModule]" type="hidden" value="comments">
 
             <div class="clearfix comments_pane">
             {if is_array($comments)}

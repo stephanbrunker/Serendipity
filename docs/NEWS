@@ -28,7 +28,9 @@ Version 2.4-alpha4 (subscription branch)
      from the templates and removed the now unneccesary 
      serendipity_checkCommentTokenModeration function. Also removed the
      entry id argument of approveComment and deleteComment, because the
-     comment data is fetched anyway. 
+     comment data is fetched anyway.
+   * fixed a bug in the comments admin page, multiselect operations did
+     repeat the previous command from the GET string
 
 Version 2.4-alpha3 (subscription branch)
 ------------------------------------------------------------------------
