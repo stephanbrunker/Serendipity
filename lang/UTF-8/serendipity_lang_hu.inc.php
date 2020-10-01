@@ -1025,9 +1025,15 @@
 @define('MAILTO_SUBSCRIBERS_SUCCESS', 'Emails sent');
 
 /* EMAIL TEMPLATES */
-@define('CONFIRMATION_MAIL_SUBSCRIPTION', "Hello %s,\n\nÉrtesítést kértél új hozzászólások érkezéséről a következő bejegyzéshez: \"%s\" (<%s>). A feliratkozás elfogadásához (\"Double Opt In\") kattints erre a linkre:\n<%s>\n.");
+@define('CONFIRMATION_MAIL_SUBSCRIPTION', "Hello %s,\n\nYou have requested to be notified for new comments to \"%s\" (<%s>) in the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
 @define('CONFIRMATION_MAIL_TITLE', 'Email Subscription to new articles of "%s" ');
-@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hello %s,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n.");
+@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_COMMENT_TITLE', 'Email subscription of new comments to "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_COMMENTSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new comments to \"%s\" (<%s>) in the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_AUTHOR_TITLE', 'Email subscription of new articles from "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_AUTHORSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>) by \"%s\". To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_CATEGORY_TITLE', 'Email subscription of new articles in "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_CATEGORYSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>) in the category \"%s\" \"%s\". To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ALWAYS', "Hello %s,\n\nÚj hozzászólást küldtél ehhez: \"%s\". A hozzászólásod ez volt:\n\n%s\n\nA blog tulajdonosa engedélyezte az email-es ellenőrzést, így a következő linkre kell kattintanod hogy azonosítsd a hozzászólásodat:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ONCE', "Hello %s,\n\nÚj hozzászólást küldtél ehhez: \"%s\". A hozzászólásod ez volt:\n\n%s\n\nA blog tulajdonosa engedélyezte az egyszeri email-es ellenőrzést, így a következő linkre kell kattintanod hogy azonosítsd a hozzászólásodat:\n<%s>\n\nMiután megtetted ezt, küldhetsz hozzászólásokat a felhasználóneveddel és email címeddel anélkül hogy újabb azonosító emailt kapnál.");
 @define('SUBSCRIPTION_MAIL_INTRO', 'In the blog %s a new article was posted:');

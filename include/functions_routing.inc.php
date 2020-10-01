@@ -354,7 +354,7 @@ function serveSubscribe($type, $id = NULL) {
                 }
             }
             if ($res === false) {
-                // fail - check mail
+                // fail - various errors
                 $serendipity['smarty_custom_vars']['content_message'] = 
                 NOTIFICATION_SUBSCRIBE_CONFIRM_FAIL; 
             } else if ($res == 'dupe') {

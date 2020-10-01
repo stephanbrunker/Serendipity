@@ -224,6 +224,10 @@ function serendipity_printUnsubscribepage() {
 function serendipity_sendConfirmationMail($email, $type = 'blog', $target_id = NULL, $name = NULL)  {
     global $serendipity;
 
+    // Delete any subscription attempts that smell like 3-week-old, dead fish.
+    serendipity_db_query("DELETE FROM {$serendipity['dbPrefix']}subscriptions
+                                WHERE subscribed = 'false' AND timestamp < " . (time() - 1814400) );
+
     if (!$serendipity['allowSubscriptions']) { 
         return false;
     }
@@ -248,7 +252,11 @@ function serendipity_sendConfirmationMail($email, $type = 'blog', $target_id = N
 
     // check if subscription already exists
     if ($type == 'entry' || $type == 'author' || $type == 'category') {
-        $sql_where = "AND target_id = {$target_id}";
+        if ($target_id == 'NULL') {
+            return false;
+        } else {
+            $sql_where = "AND target_id = {$target_id}";
+        }
     } elseif ($type == 'blog') {
         $sql_where = '';
     } else {
@@ -280,22 +288,68 @@ function serendipity_sendConfirmationMail($email, $type = 'blog', $target_id = N
         case 'blog':
             $subject = sprintf(CONFIRMATION_MAIL_TITLE, $serendipity['blogTitle']);
             $message = sprintf(CONFIRMATION_MAIL_BLOGSUBSCRIPTION,
-                                $name,
                                 $serendipity['blogTitle'],
                                 $serendipity['baseURL'],
                                 serendipity_rewriteURL(PATH_SUBSCRIBE . '/optin/' . $dbhash, 'baseURL'));
             break;
 
+        case 'author':
+            $author = serendipity_fetchAuthor($target_id);
+            if (is_array($author)) {
+                $subject = sprintf(CONFIRMATION_MAIL_AUTHOR_TITLE, 
+                                    $author['realname'],
+                                    $serendipity['blogTitle']);
+                $message = sprintf(CONFIRMATION_MAIL_AUTHORSUBSCRIPTION,
+                                    $serendipity['blogTitle'],
+                                    $serendipity['baseURL'],
+                                    $author['realname'],
+                                    serendipity_rewriteURL(PATH_SUBSCRIBE . '/optin/' . $dbhash, 'baseURL'));
+            } else {
+                return false;
+            }
+            break;
+            
+        case 'category':
+            $category = serendipity_fetchCategoryInfo($target_id);
+            if (is_array($category)) {
+                serendipity_plugin_api::hook_event('multilingual_strip_langs',$category, array('category_name')); 
+                $subject = sprintf(CONFIRMATION_MAIL_CATEGORY_TITLE, 
+                                    $category['category_name'],
+                                    $serendipity['blogTitle']);
+                $message = sprintf(CONFIRMATION_MAIL_CATEGORYSUBSCRIPTION,
+                                    $serendipity['blogTitle'],
+                                    $serendipity['baseURL'],
+                                    $category['category_name'],
+                                    serendipity_rewriteURL(PATH_SUBSCRIBE . '/optin/' . $dbhash, 'baseURL'));
+            } else {
+                return false;
+            }
+            break;
+
         case 'entry':
-            if (empty($target_id)) break;
             $res = serendipity_db_query("SELECT title FROM {$serendipity['dbPrefix']}entries WHERE id = {$target_id}", true);
             if (is_array($res)) {
-                $subject = sprintf(NEW_COMMENT_TO_SUBSCRIBED_ENTRY, $res['title']);
-                $message = sprintf(CONFIRMATION_MAIL_SUBSCRIPTION,
-                                    $name,
-                                    $res['title'],
-                                    serendipity_archiveURL($target_id, $res['title'], 'baseURL'),
-                                    serendipity_rewriteURL(PATH_SUBSCRIBE . '/optin/' . $dbhash, 'baseURL'));
+                $subject = sprintf(CONFIRMATION_MAIL_COMMENT_TITLE, 
+                                    $res['title'], 
+                                    $serendipity['blogTitle']);
+                if ($name) {
+                    $message = sprintf(CONFIRMATION_MAIL_SUBSCRIPTION,
+                                        $name,
+                                        $res['title'],
+                                        serendipity_archiveURL($target_id, $res['title'], 'baseURL'),
+                                        $serendipity['blogTitle'],
+                                        $serendipity['baseURL'],
+                                        serendipity_rewriteURL(PATH_SUBSCRIBE . '/optin/' . $dbhash, 'baseURL'));
+                } else {
+                    $message = sprintf(CONFIRMATION_MAIL_COMMENTSUBSCRIPTION,
+                                        $res['title'],
+                                        serendipity_archiveURL($target_id, $res['title'], 'baseURL'),
+                                        $serendipity['blogTitle'],
+                                        $serendipity['baseURL'],
+                                        serendipity_rewriteURL(PATH_SUBSCRIBE . '/optin/' . $dbhash, 'baseURL'));
+                }
+            } else {
+                return false;
             }
             break;
     }

@@ -1037,9 +1037,15 @@ $i18n_filename_to = array (
 @define('MAILTO_SUBSCRIBERS_SUCCESS', 'Emails sent');
 
 /* EMAIL TEMPLATES */
-@define('CONFIRMATION_MAIL_SUBSCRIPTION', "Dobrý deò %s,\n\nPo¾iadali ste o zasielanie oznámení o nových komentároch k èlánku \"%s\" (<%s>). Túto ¾iados» (\"Double Opt In\") potvrdíte kliknutím na nasledujúci odkaz:\n<%s>\n.");
+@define('CONFIRMATION_MAIL_SUBSCRIPTION', "Hello %s,\n\nYou have requested to be notified for new comments to \"%s\" (<%s>) in the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
 @define('CONFIRMATION_MAIL_TITLE', 'Email Subscription to new articles of "%s" ');
-@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hello %s,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n.");
+@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_COMMENT_TITLE', 'Email subscription of new comments to "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_COMMENTSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new comments to \"%s\" (<%s>) in the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_AUTHOR_TITLE', 'Email subscription of new articles from "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_AUTHORSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>) by \"%s\". To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_CATEGORY_TITLE', 'Email subscription of new articles in "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_CATEGORYSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>) in the category \"%s\" \"%s\". To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ALWAYS', "Dobrý deò %s,\n\nPoslali ste nový komentár na \"%s\". Komentár znie:\n\n%s\n\nVlastník weblogu po¾aduje e-mailové potvrdenie, tak¾e je potrebné komentár potvrdi» kliknútím na nasledujúcí odkaz:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ONCE', "Dobrý deò %s,\n\nPoslali ste nový komentár na \"%s\". Vá¹ komentár znie:\n\n%s\n\nVlastník weblogu vy¾aduje prvotné e-mailové potvrdenie. Znamená to, ¾e je potrebné komentár potvrdi» kliknutím na nasledující odkaz:\n<%s>\n\nSúèasne tým budú potvrdené v¹etky ïal¹ie komentáre s tým istým menom a tou istou e-mailovou adresou, tak¾e Vám v budúcnosti u¾ podobné oznámenie nebude doruèované.");
 @define('SUBSCRIPTION_MAIL_INTRO', 'In the blog %s a new article was posted:');

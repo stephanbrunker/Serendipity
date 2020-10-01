@@ -1026,9 +1026,15 @@
 @define('MAILTO_SUBSCRIBERS_SUCCESS', 'Emails sent');
 
 /* EMAIL TEMPLATES */
-@define('CONFIRMATION_MAIL_SUBSCRIPTION', "안녕하세요, %s님.\n\n\"%s\" (<%s>)에 대한 덧글이 달릴 경우 알려달라는 요청을 한 바 있습니다. 이 구독사항을 승인하고자 할 경우 (\"2중 사용자 동의\") 다음 링크를 누르기 바랍니다:\n<%s>\n.");
+@define('CONFIRMATION_MAIL_SUBSCRIPTION', "Hello %s,\n\nYou have requested to be notified for new comments to \"%s\" (<%s>) in the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
 @define('CONFIRMATION_MAIL_TITLE', 'Email Subscription to new articles of "%s" ');
-@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hello %s,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n.");
+@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_COMMENT_TITLE', 'Email subscription of new comments to "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_COMMENTSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new comments to \"%s\" (<%s>) in the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_AUTHOR_TITLE', 'Email subscription of new articles from "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_AUTHORSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>) by \"%s\". To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_CATEGORY_TITLE', 'Email subscription of new articles in "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_CATEGORYSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>) in the category \"%s\" \"%s\". To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ALWAYS', "안녕하세요, %s님.\n\n새로운 덧글을 \"%s\"에 추가하셨습니다. 내용은 다음과 같습니다:\n\n%s\n\n블로그 주인이 전자우편을 통한 인증을 사용하고 있으므로 다음 링크를 눌러서 덧글을 인증하시기 바랍니다:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ONCE', "안녕하세요 %s님.\n\n새로운 덧글을 \"%s\"에 추가하셨습니다. 내용은 다음과 같습니다:\n\n%s\n\n블로그 주인이 1회성 전자우편 인증을 사용하고 있으므로 다음 링크를 눌러서 덧글을 인증하시기 바랍니다:\n<%s>\n\n인증이 된 이후에는 동일한 사용자 이름과 전자우편 주소로 더 이상 인증을 안 거치고 덧글을 달 수 있게 됩니다.");
 @define('SUBSCRIPTION_MAIL_INTRO', 'In the blog %s a new article was posted:');

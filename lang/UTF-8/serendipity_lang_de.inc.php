@@ -1025,9 +1025,15 @@
 @define('MAILTO_SUBSCRIBERS_SUCCESS', 'Emails versandt!');
 
 /* EMAIL TEMPLATES */
-@define('CONFIRMATION_MAIL_SUBSCRIPTION', "Hallo %s,\n\nSie haben bei ihrem Blog-Kommentar zu dem Eintrag \"%s\" auf <%s> das Abonnement neuer Kommentare gewünscht. Um dies zu bestätigen (\"Double Opt In\") klicken Sie bitte diesen Link:\n<%s>\n");
-@define('CONFIRMATION_MAIL_TITLE', 'Email-Abonnement neuer Artikel von "%s" ');
-@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hallo %s,\n\nSie wollen benachrichtigt werden wenn neue Artikel im Blog \"%s\" (<%s>) erscheinen. Um das Abonnement zu bestätigen (\"Double Opt In\") klicken Sie bitte auf diesen Link:\n<%s>\n.");
+@define('CONFIRMATION_MAIL_SUBSCRIPTION', "Hallo %s,\n\nSie haben bei ihrem Blog-Kommentar zu dem Eintrag \"%s\" (<%s>) im Blog \"%s\" (<%s>) das Abonnement neuer Kommentare gewünscht. Um dies zu bestätigen (\"Double Opt In\") klicken Sie bitte diesen Link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_TITLE', 'Email-Abonnement neuer Artikel von "%s"');
+@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hallo,\n\nSie wollen benachrichtigt werden wenn neue Artikel im Blog \"%s\" (<%s>) erscheinen. Um das Abonnement zu bestätigen (\"Double Opt In\") klicken Sie bitte auf diesen Link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_COMMENT_TITLE', 'Email-Abonnement neuer Kommentare zu "%s" im Blog "%s"');
+@define('CONFIRMATION_MAIL_COMMENTSUBSCRIPTION', "Hallo,\n\nSie wollen benachrichtigt werden wenn neue Kommentare zum Artikel \"%s\" (<%s>) im Blog \"%s\" (<%s>) erscheinen. Um das Abonnement zu bestätigen (\"Double Opt In\") klicken Sie bitte auf diesen Link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_AUTHOR_TITLE', 'Email-Abonnement neuer Artikel von "%s" im Blog "%s"');
+@define('CONFIRMATION_MAIL_AUTHORSUBSCRIPTION', "Hallo,\n\nSie wollen benachrichtigt werden wenn neue Artikel im Blog \"%s\" (<%s>) geschrieben von \"%s\" erscheinen. Um das Abonnement zu bestätigen (\"Double Opt In\") klicken Sie bitte auf diesen Link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_CATEGORY_TITLE', 'Email-Abonnement neuer Artikel in "%s" im Blog "%s"');
+@define('CONFIRMATION_MAIL_CATEGORYSUBSCRIPTION', "Hallo,\n\nSie wollen benachrichtigt werden wenn neue Artikel im Blog \"%s\" (<%s>) in der Kategorie \"%s\" erscheinen. Um das Abonnement zu bestätigen (\"Double Opt In\") klicken Sie bitte auf diesen Link:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ALWAYS', "Hallo %s,\n\nSie haben einen neuen Kommentar zu \"%s\" erstellt. Ihr Kommentar war:\n\n%s\n\nDer Betreiber dieses Blogs hat die Bestätigung per E-Mail gewünscht, daher müssen Sie folgenden Link anklicken:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ONCE', "Hallo %s,\n\nSie haben einen neuen Kommentar zu \"%s\" erstellt. Ihr Kommentar war:\n\n%s\n\nDer Betreiber dieses Blogs hat die Bestätigung per E-Mail gewünscht, daher müssen Sie folgenden Link anklicken:\n<%s>\n\nNachdem Sie dies getan haben, können Sie auf dem Blog jederzeit mit ihrem Namen und E-Mail-Adresse ohne weitere Freischaltung kommentieren.");
 @define('SUBSCRIPTION_MAIL_INTRO', 'Im Blog %s ist ein neuer Artikel erschienen:');

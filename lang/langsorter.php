@@ -4,7 +4,7 @@
 // usage: php -f langsorter.php [arg1] [arg1]
 // arg1: language file to sort, for example de
 // arg2: folder, empty = language root folder, UTF-8 = subfolder
-// or single argument all to batch process all existing language files
+// or single argument "all" to batch process all existing language files
 // rearranges the language file the same as is in the english file
 // missing definitions are copied from the english file
 // removed definitions going to be removed
@@ -87,8 +87,10 @@ function synclang($dir, $lancode) {
 
     // make changes, e.g. delete translations which have to be changed
     //unset($tardefs['IFRAME_SAVE']); reset a string to be copied from default
-    $tardefs['SIGNATURE'] = ' "' . trim($tardefs['SIGNATURE'], 'n- "\\') . '"'; 
-    $tardefs['SIGNATURE'] = str_replace('<https://s9y.org>', '%s', $tardefs['SIGNATURE']);
+    //$tardefs['SIGNATURE'] = ' "' . trim($tardefs['SIGNATURE'], 'n- "\\') . '"'; 
+    //$tardefs['SIGNATURE'] = str_replace('<https://s9y.org>', '%s', $tardefs['SIGNATURE']);
+    unset($tardefs['CONFIRMATION_MAIL_SUBSCRIPTION']);
+    unset($tardefs['CONFIRMATION_MAIL_BLOGSUBSCRIPTION']);
     echo "OK\r\n";
     $output = array_slice($tararray, 0, $tarstart);
 

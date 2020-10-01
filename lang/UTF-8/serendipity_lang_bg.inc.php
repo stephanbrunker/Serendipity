@@ -1030,9 +1030,15 @@ $i18n_filename_to   = array('-', 'a', 'A', 'b', 'B', 'v', 'V', 'g', 'G', 'd', 'D
 @define('MAILTO_SUBSCRIBERS_SUCCESS', 'Emails sent');
 
 /* EMAIL TEMPLATES */
-@define('CONFIRMATION_MAIL_SUBSCRIPTION', "Здравейте %s,\n\nВие сте заявили да получавате известия за нови коментари към \"%s\" (<%s>). За да потвърдите абонамента (\"Double Opt In\") моля изберете тази връзка:\n<%s>\n.");
+@define('CONFIRMATION_MAIL_SUBSCRIPTION', "Hello %s,\n\nYou have requested to be notified for new comments to \"%s\" (<%s>) in the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
 @define('CONFIRMATION_MAIL_TITLE', 'Email Subscription to new articles of "%s" ');
-@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hello %s,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n.");
+@define('CONFIRMATION_MAIL_BLOGSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_COMMENT_TITLE', 'Email subscription of new comments to "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_COMMENTSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new comments to \"%s\" (<%s>) in the blog \"%s\" (<%s>). To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_AUTHOR_TITLE', 'Email subscription of new articles from "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_AUTHORSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>) by \"%s\". To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
+@define('CONFIRMATION_MAIL_CATEGORY_TITLE', 'Email subscription of new articles in "%s" in the blog "%s"');
+@define('CONFIRMATION_MAIL_CATEGORYSUBSCRIPTION', "Hello,\n\nYou have requested to be notified for new articles to the blog \"%s\" (<%s>) in the category \"%s\" \"%s\". To approve this subscription (\"Double Opt In\") please click this link:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ALWAYS', "Здравейте %s,\n\nВие сте изпратил(а) нов коментар  на \"%s\". Вашият коментар е:\n\n%s\n\nСобственикът на блога е включил e-mail верификация, така че Вие трябва да изберете следващата връзка, за да удостоверите Вашия коментар:\n<%s>\n");
 @define('CONFIRMATION_MAIL_ONCE', "Здравейте %s,\n\nВие сте изпратил(а) нов коментар  на \"%s\". Вашият коментар е:\n\n%s\n\nСобственикът на блога е включил еднократна e-mail верификация, така че Вие трябва да изберете следващата връзка, за да удостоверите Вашия коментар:\n<%s>\n\nСлед като направите това, Вие можете да изпращате коментари в този блог с Вашето име и e-mail адрес без да получавате известия като това.");
 @define('SUBSCRIPTION_MAIL_INTRO', 'In the blog %s a new article was posted:');
