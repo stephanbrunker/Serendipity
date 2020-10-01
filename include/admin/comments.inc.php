@@ -16,8 +16,10 @@ if ($serendipity['POST']['formAction'] == 'multiDelete' && sizeof($serendipity['
     if ($serendipity['POST']['togglemoderate'] != '') {
         foreach ( $serendipity['POST']['delete'] as $v ) {
             $ac = serendipity_approveComment((int)$v, false, 'flip');
-            if ($ac > 0) {
+            if ($ac == 'comment_approved') {
                 $msg[] = DONE . ': '. sprintf(COMMENT_APPROVED, (int)$v);
+            } elseif ($ac == 'trackback_approved') {
+                $msg[] = DONE . ': '. sprintf(TRACKBACK_APPROVED, (int)$v);
             } else {
                 $msg[] = DONE . ': '. sprintf(COMMENT_MODERATED, (int)$v);
             }
@@ -26,11 +28,11 @@ if ($serendipity['POST']['formAction'] == 'multiDelete' && sizeof($serendipity['
         foreach ( $serendipity['POST']['delete'] as $v ) {
             $success = serendipity_deleteComment($v);
             if ($success == 'comment_deleted') {
-                $msg[] = DONE . ': '. sprintf(COMMENT_DELETED, (int)$serendipity['GET']['id']);
+                $msg[] = DONE . ': '. sprintf(COMMENT_DELETED, (int)$v);
             } elseif ($success == 'trackback_deleted') {
-                $msg[] = DONE . ': '. sprintf(TRACKBACK_DELETED, (int)$serendipity['GET']['id']);
+                $msg[] = DONE . ': '. sprintf(TRACKBACK_DELETED, (int)$v);
             } else {
-                $errormsg[] = ERROR . ': '. sprintf(COMMENT_NOT_DELETED, (int)$serendipity['GET']['id']);
+                $errormsg[] = ERROR . ': '. sprintf(COMMENT_NOT_DELETED, (int)$v);
             }
         }
     }
