@@ -169,7 +169,7 @@ class Serendipity_Import_Pivot extends Serendipity_Import {
                         if (isset($entrydata['comments']) && count($entrydata['comments']) > 0) {
                             foreach($entrydata['comments'] AS $comment) {
                                 
-                                $notify = $comment['notify'] ? 'true' : 'false',
+                                $notify = $comment['notify'] ? 'true' : 'false';
                                 $comment = array('entry_id ' => $entry['id'],
                                                  'parent_id' => 0,
                                                  'timestamp' => $this->toTimestamp($comment['date']),
